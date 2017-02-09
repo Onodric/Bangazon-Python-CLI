@@ -62,7 +62,7 @@ class ShoppingCart():
 
         total_price = 0
 
-        for items in self.__line_items:
+        for item in self.__line_items:
             total_price += item[2]
 
         return total_price
