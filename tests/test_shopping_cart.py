@@ -60,7 +60,7 @@ class TestShoppingCart(unittest.TestCase):
         """
         Method to test whether the shopping cart can be closed
         """
-        self.current_cart.accept_payment(payment_method)
+        self.current_cart.accept_payment(self.payment_method)
         self.assertEqual(self.current_cart.get_payment_method(), [(1, "Visa", "1234567812345678")])
         self.assertTrue(self.current_cart.order_is_closed())
 
