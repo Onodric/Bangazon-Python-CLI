@@ -9,6 +9,8 @@ class TestShoppingCart(unittest.TestCase):
     """
     A test suite for the Shopping cart Feature of Bangazon CLI
 
+    Author: Ben Marks, Ludicrous Ducks
+
     Methods:
     Model_Class
         test_current_cart_should_be_ShoppingCart_object
@@ -46,14 +48,14 @@ class TestShoppingCart(unittest.TestCase):
 
     def test_current_cart_should_be_ShoppingCart_object(self):
         """
-        Method to test whether the ShoppingCart object id created correctly
+        Method to test whether the ShoppingCart object is created correctly
         """
         self.assertIsInstance(self.current_cart, ShoppingCart)
         
 
     def test_get_customer_should_return_attached_customer():
         """
-        Method to test whether the ShoppingCart object can add a product
+        Method to test whether the ShoppingCart object can return the active customer
         """
 
 

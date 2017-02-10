@@ -3,6 +3,8 @@ import sqlite3
 class LineItemDB():
     """
     Class for writing to the LineItem table in bangazon.db
+
+    Author: Ben Marks, Ludicrous Ducks
     
     Methods:
         get_all_line_items

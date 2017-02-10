@@ -6,9 +6,11 @@ from db.line_item_db_interactor import LineItemDB
 class ShoppingCart():
     """
     Class defining a customer's shopping cart.
-    
+
     Initially the cart is open (or "is_closed" is False), and will be
         closed (or "is_closed" is True) upon customer payment processing.
+
+    Author: Ben Marks, Ludicrous Ducks
 
     Methods:
         get_customer
