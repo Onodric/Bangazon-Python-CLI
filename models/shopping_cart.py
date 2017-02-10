@@ -41,23 +41,25 @@ class ShoppingCart():
         self.__customer = customer
         self.__line_items = line_items
         self.__payment_method = payment_method
-        self.__is_closed = False
+        self.__is_closed = 0
 
 
     def get_customer(self):
-
+        return
 
 
     def get_line_items(self):
+        return
 
 
 
     def get_payment_method(self):
+        return
 
 
 
     def get_is_closed(self):
-
+        return
 
 
     def get_line_items(self):

@@ -37,13 +37,16 @@ class TestShoppingCart(unittest.TestCase):
         Method to setup global values needed for all tests
         """
         print('Set up class')
-        # Create an instance of the ShoppingCart that can be used in all tests
-        self.current_cart = ShoppingCart()
+        # Create an instance of the ShoppingCart that can be used in all
+        #   tests
+        self.current_customer = (1, "Me", "500 Interstate Blvd", "Nashville",
+            "TN", "11111", "(615) 123-4567", 1)
         # Create an instance of a product that can be used in all tests
         # Product tuple will need alteration
         self.product1 = (1, "Widget", 5, "Widget")
         self.product2 = (2, "FooBar", 10, "foobar widget")
-        self.payment_method = (1, "Visa", "1234567812345678")
+        self.payment_method = (1, "Visa", "1234567812345678", 1)
+        self.current_cart = ShoppingCart(customer=self.current_customer)
 
 
     def test_current_cart_should_be_ShoppingCart_object(self):
@@ -53,44 +56,50 @@ class TestShoppingCart(unittest.TestCase):
         self.assertIsInstance(self.current_cart, ShoppingCart)
         
 
-    def test_get_customer_should_return_attached_customer():
+    def test_get_customer_should_return_attached_customer(self):
         """
-        Method to test whether the ShoppingCart object can return the active customer
+        Method to test whether the ShoppingCart object can return the active
+            customer
         """
+        self.assertEqual(self.current_cart.get_customer(),
+            self.current_customer)
 
 
-
-    def test_get_line_items_should_return_all_line_items():
+    def test_get_payment_method_should_return_payment_method(self):
         """
-        Method to test whether the ShoppingCart object can add a product
+        Method to test whether the ShoppingCart object return the payment
+            method
         """
+        self.assertEqual(self.current_cart.get_payment_method(), ())
 
 
-
-    def test_get_payment_method_should_return_payment_method():
+    def test_get_is_closed_should_return_is_closed_flag(self):
         """
-        Method to test whether the ShoppingCart object can add a product
+        Method to test whether the ShoppingCart object can return the
+            is_closed flag
         """
-
-
-
-    def test_get_is_closed_should_return_is_closed_flag():
-        """
-        Method to test whether the ShoppingCart object can add a product
-        """
-
+        self.assertFalse(self.current_cart.get_is_closed())
 
 
     def test_ShoppingCart_should_add_product(self):
         """
         Method to test whether the ShoppingCart object can add a product
         """
-        current_cart = ShoppingCart()
-        self.assertEqual(current_cart.get_all_products(), [])
-        current_cart.add_product(self.product1)
-        self.assertEqual(current_cart.get_all_products(), [self.product1])
-        current_cart.add_product(self.product2)
-        self.assertEqual(current_cart.get_all_products(), [self.product1, self.product2])
+        self.current_cart = ShoppingCart()
+        self.assertEqual(self.current_cart.get_line_items(), [])
+        self.current_cart.add_product(self.product1)
+        self.assertEqual(self.current_cart.get_line_items(), [self.product1])
+        self.assertEqual(self.current_cart.get_line_items(), [self.product1, self.product2])
+
+
+    def test_get_line_items_should_return_all_line_items(self):
+        """
+        Method to test whether the ShoppingCart object can return all line
+            items
+        """
+        self.current_cart.add_product(self.product2)
+        self.assertEqual(self.current_cart.get_line_items,
+            [self.product1, self.product2])
 
 
     def test_ShoppingCart_should_return_cart_total_price(self):
@@ -104,41 +113,39 @@ class TestShoppingCart(unittest.TestCase):
         """
         Method to test whether the shopping cart can be closed
         """
-        self.current_cart.accept_payment(payment_method)
-        self.assertEqual(self.current_cart.get_payment_method(), [(1, "Visa", "1234567812345678")])
+        self.current_cart.accept_payment(self.payment_method)
+        self.assertEqual(self.current_cart.get_payment_method(), [(1, "Visa", "1234567812345678", 1)])
         self.assertTrue(self.current_cart.order_is_closed())
 
 
-    def test_OrderDB_should_return_all_orders():
+    def test_OrderDB_should_return_all_orders(self):
         """
         Method to test whether the Order DB Interactor can return all orders
         """
 
 
-    def test_OrderDB_should_write_new_order():
+    def test_OrderDB_should_write_new_order(self):
         """
         Method to test whether the Order DB Interactor can create a new order
         """
 
 
-    def test_OrderDB_should_update_order_status():
+    def test_OrderDB_should_update_order_status(self):
         """
         Method to test whether the Order DB Interactor can update an order
         """
 
 
-    def test_LineItemDB_should_write_new_line_item():
+    def test_LineItemDB_should_write_new_line_item(self):
         """
         Method to test whether the LineItem DB Interactor can write a new line item
         """
 
 
-    def test_LineItemDB_should_return_all_line_items():
+    def test_LineItemDB_should_return_all_line_items(self):
         """
         Method to test whether the LineItem DB Interactor can return all line items
         """
-
-
 
 
 if __name__ == '__main__':

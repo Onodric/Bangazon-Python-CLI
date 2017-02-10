@@ -16,15 +16,16 @@ class LineItemDB():
         """
         Method to return all lineitems in the LineItem table
         """
-        with sqlite3.connect("bangazon.db") as db:
-            cursor = db.cursor()
 
-            try:
-                cursor.execute("SELECT * FROM LineItem")
-                line_items = cursor.fetchall()
-                return line_items
-            except sqlite3.OperationalError:
-                return False
+        # with sqlite3.connect("bangazon.db") as db:
+        #     cursor = db.cursor()
+
+        #     try:
+        #         cursor.execute("SELECT * FROM LineItem")
+        #         line_items = cursor.fetchall()
+        #         return line_items
+        #     except sqlite3.OperationalError:
+        #         return False
 
 
     def write_one_line_item(self, line_item):
@@ -32,13 +33,9 @@ class LineItemDB():
         Method to write one line item to the LineItem table
         """
 
-        with sqlite3.connect("bangazon.db") as db:
-            cursor = db.cursor()
+        # with sqlite3.connect("bangazon.db") as db:
+        #     cursor = db.cursor()
 
-            cursor.execute("""
-                INSERT INTO LineItem VALUES ('{}', '{}', '{}')
-                """.format(None,
-                            line_item[]
-                            line_item.get_last_name(),
-                            line_item.get_email(),
-                            user.get_username()))
+        #     cursor.execute("""
+        #         INSERT INTO LineItem VALUES ('{}', '{}', '{}')
+        #         """.format(None, line_item[0], line_item[1], line_item[2])
