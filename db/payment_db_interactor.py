@@ -32,26 +32,26 @@ class PaymentDatabaseInteractor():
 
 
 
-#payment as argument should be instance of payment model
+# payment as argument should be instance of payment model
 
     def save_payment(self, payment):
-        with sqlite3.connect("bangazon.db") as pago:
+        print(payment)
+        with sqlite3.connect("/Users/daniadkins/workspace/group-projects/bangazon_cli/bangazon-cli/db/bangazon.db") as pago:
             cursor = pago.cursor()
 
-        try:
+        # try:
             cursor.execute("""
-                INSERT INTO Payment VALUES (null, ?, ?, ?)
+                INSERT INTO Payment VALUES (null, '{}', '{}', {})
             """.format(
+                        payment.get_account_number(),
                         payment.get_payment_type(),
-                        payment.get_account_number()
                         payment.get_customer_id()))
-        except sqlite3.OperationalError:
-            return False
+        # except sqlite3.OperationalError:
+        #     return False
 
-        current_payment = cursor.fetchall()
 
-    def get_all_payments(self, payment):
-        with sqlite3.connect("bangazon.db") as pago:
+    def get_all_payments(self):
+        with sqlite3.connect("/Users/daniadkins/workspace/group-projects/bangazon_cli/bangazon-cli/db/bangazon.db") as pago:
             cursor = pago.cursor()
 
         try:
@@ -61,8 +61,8 @@ class PaymentDatabaseInteractor():
         except sqlite3.OperationalError:
             return False
 
-            all_payments = cursor.fetchall()
-            return all_payments
+        all_payments = cursor.fetchall()
+        return all_payments
 
 
 

@@ -1,6 +1,6 @@
 # import sqlite3
 
-class Payment():
+class Payment:
     """
     A class for payment that has the following methods on it:
         get_payment_type
@@ -12,10 +12,10 @@ class Payment():
     Author, Dani Adkins
     """
 
-    def __init__(self, customer_id, payment_type, account_number):
-        self.__customer_id = customer_id
+    def __init__(self, payment_type, account_number, customer_id):
         self.__payment_type = payment_type
         self.__account_number = account_number
+        self.__customer_id = customer_id
         self.__full_payment_info_current_account_current_user = [(1 ,"Visa", "12345678"), (2, "MC", "34534")]
 
     def get_payment_type(self):
@@ -33,7 +33,7 @@ class Payment():
         return self.__account_number
 
     def get_customer_id(self):
-         """
+        """
         A method that will return the customer id of an instance of payment
         Author, Dani Adkins
         """
