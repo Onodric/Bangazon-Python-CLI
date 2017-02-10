@@ -1,14 +1,14 @@
-DELETE FROM Customer;
-DELETE FROM Payment;
-DELETE FROM Product;
-DELETE FROM Order;
 DELETE FROM LineItems;
+DELETE FROM Orders;
+DELETE FROM Product;
+DELETE FROM Payment;
+DELETE FROM Customer;
 
-DROP TABLE IF EXISTS Customer;
-DROP TABLE IF EXISTS Payment;
-DROP TABLE IF EXISTS Product;
-DROP TABLE IF EXISTS Order;
 DROP TABLE IF EXISTS LineItem;
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS Payment;
+DROP TABLE IF EXISTS Customer;
 
 
 
@@ -35,7 +35,7 @@ CREATE TABLE `Payment` (
     payment_type TEXT NOT NULL,
     customer_id INTEGER NOT NULL,
     FOREIGN KEY(`customer_id`) REFERENCES `Customer`(`customer_id`)
-)
+);
 
 INSERT INTO Payment
 	SELECT null, 1234567890, "VISA", c.customer_id
@@ -67,26 +67,26 @@ INSERT INTO Product VALUES (null, 'Electric Guitar', 3.50, 'Fun way to make musi
 
 
 
-CREATE TABLE `Order` (
-    order_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE `Orders` (
+    orders_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     is_closed INTEGER NOT NULL,
     payment_id INTEGER NOT NULL,
     customer_id INTEGER NOT NULL,
     FOREIGN KEY(`payment_id`) REFERENCES `Payment`(`payment_id`),
     FOREIGN KEY(`customer_id`) REFERENCES `Customer`(`customer_id`)
-)
+);
 
-INSERT INTO Order
+INSERT INTO Orders
 	SELECT null, 0, p.payment_id, c.customer_id
 	FROM Payment p, Customer c
 	WHERE p.payment_type = "VISA" AND c.name = "Bob Ross";
 
-INSERT INTO Order
+INSERT INTO Orders
 	SELECT null, 0, p.payment_id, c.customer_id
 	FROM Payment p, Customer c
 	WHERE p.payment_type = "Wells Fargo" AND c.name = "Donald Trump";
 
-INSERT INTO Order
+INSERT INTO Orders
 	SELECT null, 1, p.payment_id, c.customer_id
 	FROM Payment p, Customer c
 	WHERE p.payment_type = "Bunny Bank" AND c.name = "Bugs Bunny";
@@ -95,25 +95,25 @@ INSERT INTO Order
 
 CREATE TABLE `LineItem`(
     line_item_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    order_id INTEGER NOT NULL,
+    orders_id INTEGER NOT NULL,
     product_id INTEGER NOT NULL,
-    FOREIGN KEY(`order_id`) REFERENCES `Order`(`order_id`),
+    FOREIGN KEY(`orders_id`) REFERENCES `Orders`(`orders_id`),
     FOREIGN KEY(`product_id`) REFERENCES `Product`(`product_id`)
-)
+);
 
 INSERT INTO LineItem
-	SELECT null, o.order_id, p.product_id
-	FROM Product p, Order o, Customer c
+	SELECT null, o.orders_id, p.product_id
+	FROM Product p, Orders o, Customer c
 	WHERE p.name = "coconut oil shampoo" AND c.name="Bob Ross" AND o.customer_id = c.customer_id;
 
 INSERT INTO LineItem
-	SELECT null, o.order_id, p.product_id
-	FROM Product p, Order o, Customer c
+	SELECT null, o.orders_id, p.product_id
+	FROM Product p, Orders o, Customer c
 	WHERE p.name = "Rusty Slinky" AND c.name="Donald Trump" AND o.customer_id = c.customer_id;
 
 INSERT INTO LineItem
-	SELECT null, o.order_id, p.product_id
-	FROM Product p, Order o, Customer c
+	SELECT null, o.orders_id, p.product_id
+	FROM Product p, Orders o, Customer c
 	WHERE p.name = "Electric Guitar" AND c.name="Bugs Bunny" AND o.customer_id = c.customer_id;
 
 
