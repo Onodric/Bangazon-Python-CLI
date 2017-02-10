@@ -25,7 +25,7 @@ class TestShoppingCart(unittest.TestCase):
         self.current_cart = ShoppingCart()
         # Create an instance of a product that can be used in all tests
         # Product tuple will need alteration
-        self.product1 = (1, "Widget", 5)
+        self.product1 = (1, "Widget", 5, "Widget")
         self.product2 = (2, "FooBar", 10)
         self.payment_method = (1, "Visa", "1234567812345678")
 
@@ -60,8 +60,8 @@ class TestShoppingCart(unittest.TestCase):
         """
         Method to test whether the shopping cart can be closed
         """
-        self.current_cart.accept_payment(self.payment_method)
-        self.assertEqual(self.current_cart.get_payment_method(), (1, "Visa", "1234567812345678"))
+        self.current_cart.accept_payment(payment_method)
+        self.assertEqual(self.current_cart.get_payment_method(), [(1, "Visa", "1234567812345678")])
         self.assertTrue(self.current_cart.order_is_closed())
 
 
