@@ -2,25 +2,23 @@ from cli.activeCustomerView import CustomerSelection
 
 
 class MainMenu():
-    """Class to contain the Bangazon CLI user input loop. After running the file, the MainMenu.run() method is called. 
+    """Class to contain the Bangazon CLI user input loop. After running the
+     file, the MainMenu.run() method is called. 
 
     Author: Sam Phillips
     """
 
     def run(self):
         """
-        This method prompts the user to make selections which will navigate them to different interfaces to access the functionality of the Bangazon CLI. Users also have the option of exiting the program altogether.
+        This method prompts the user to make selections which will navigate
+         them to different interfaces to access the functionality of the
+          Bangazon CLI. Users also have the option of exiting the program
+           altogether.
         """
         running = True
 
         while running:
-            print("""
-
-
-
-
-                
-                """)
+            print("""\n\n\n\n\n\n""")
             selected_option = input("""
 *********************************************************
 **  Welcome to Bangazon! Command Line Ordering System  **
