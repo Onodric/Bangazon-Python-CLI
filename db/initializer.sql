@@ -101,4 +101,21 @@ CREATE TABLE `LineItem`(
     FOREIGN KEY(`product_id`) REFERENCES `Product`(`product_id`)
 )
 
+INSERT INTO LineItem
+	SELECT null, o.order_id, p.product_id
+	FROM Product p, Order o, Customer c
+	WHERE p.name = "coconut oil shampoo" AND c.name="Bob Ross" AND o.customer_id = c.customer_id;
+
+INSERT INTO LineItem
+	SELECT null, o.order_id, p.product_id
+	FROM Product p, Order o, Customer c
+	WHERE p.name = "Rusty Slinky" AND c.name="Donald Trump" AND o.customer_id = c.customer_id;
+
+INSERT INTO LineItem
+	SELECT null, o.order_id, p.product_id
+	FROM Product p, Order o, Customer c
+	WHERE p.name = "Electric Guitar" AND c.name="Bugs Bunny" AND o.customer_id = c.customer_id;
+
+
+
 
