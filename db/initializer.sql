@@ -31,24 +31,24 @@ INSERT INTO Customer VALUES (null, 'Bugs Bunny', '3333 Carrot Boulevard', 'Albuq
 
 CREATE TABLE `Payment` (
     payment_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    account_number INTEGER NOT NULL,
+    account_number TEXT NOT NULL,
     payment_type TEXT NOT NULL,
     customer_id INTEGER NOT NULL,
     FOREIGN KEY(`customer_id`) REFERENCES `Customer`(`customer_id`)
 );
 
 INSERT INTO Payment
-	SELECT null, 1234567890, "VISA", c.customer_id
+	SELECT null, "1234567890", "VISA", c.customer_id
 	FROM Customer c
 	WHERE c.name = 'Bob Ross';
 
 INSERT INTO Payment
-	SELECT null, 0987654321, "Wells Fargo", c.customer_id
+	SELECT null, "0987654321", "Wells Fargo", c.customer_id
 	FROM Customer c
 	WHERE c.name = 'Donald Trump';
 
 INSERT INTO Payment
-	SELECT null, 000000000, "Bunny Bank", c.customer_id
+	SELECT null, "000000000", "Bunny Bank", c.customer_id
 	FROM Customer c
 	WHERE c.name = 'Bugs Bunny';
 
