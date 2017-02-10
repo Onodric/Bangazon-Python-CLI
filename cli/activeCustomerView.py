@@ -21,18 +21,19 @@ class CustomerSelection():
 
 
 
-			
+
 			""")
 		print("Which customer will be active?")
 		for index, customer in enumerate(all_customers):
 			print("{}. {}".format(index + 1, customer[1]))
 		selection_index = input(">")
-		selected_customer_id = int(selection_index) - 1
+		selected_customer_index = int(selection_index) - 1
+		selected_customer = all_customers[selected_customer_index]
 
-		if selected_customer_id >= 0:
+		if selected_customer_index >= 0:
 			# data_man.deactivate_customers()
 			# data_man.activate_customer(selected_customer_id)
-			print("customer id = {}".format(selected_customer_id))
+			print("customer id = {}".format(selected_customer[0]))
 
 if __name__ == '__main__':
 	choose_customer = CustomerSelection()
