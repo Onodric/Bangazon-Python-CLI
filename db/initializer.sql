@@ -1,4 +1,4 @@
-DELETE FROM LineItems;
+DELETE FROM LineItem;
 DELETE FROM Orders;
 DELETE FROM Product;
 DELETE FROM Payment;
