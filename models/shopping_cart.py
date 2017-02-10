@@ -1,3 +1,8 @@
+import sys
+sys.path.append("../")
+from db.order_db_interactor import OrderDB
+from db.line_item_db_interactor import LineItemDB
+
 class ShoppingCart():
     """
     Class defining a customer's shopping cart.
@@ -6,7 +11,10 @@ class ShoppingCart():
         closed (or "is_closed" is True) upon customer payment processing.
 
     Methods:
-        get_all_products
+        get_customer
+        get_line_items
+        get_payment_method
+        get_is_closed
         add_product
         get_cart_total
         accept_payment
@@ -34,7 +42,23 @@ class ShoppingCart():
         self.__is_closed = False
 
 
-    def get_all_products(self):
+    def get_customer(self):
+
+
+
+    def get_line_items(self):
+
+
+
+    def get_payment_method(self):
+
+
+
+    def get_is_closed(self):
+
+
+
+    def get_line_items(self):
         """
         Method to return line items as a list of tuples
 
