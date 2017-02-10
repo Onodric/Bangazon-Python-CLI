@@ -30,7 +30,7 @@ class ProductData():
             cursor.execute("""
             INSERT INTO Product VALUES (null, '{}', '{}', '{}')
             """.format(
-                "coconut oil shampoo", 7.99, "silky smoothe hair treatment shampoo"
+                product.name, product.price, product.description
                 )
             )
             proc.commit()
@@ -48,9 +48,35 @@ class ProductData():
                 WHERE p.id = {}
                 """.format(product_id))
             products = cursor.fetchall()
-            products = list()
 
 
         return products
+
+    def get_all_product_(self):
+
+        with sqlite3.connect('bangazon.db') as proc:
+            cursor = proc.cursor()
+
+            cursor.execute(""" SELECT id, price, name FROM Product p
+               """)
+
+            results = cursor.fetchall()
+
+            return results
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

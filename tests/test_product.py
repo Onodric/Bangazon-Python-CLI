@@ -27,12 +27,12 @@ class TestProduct(unittest.TestCase):
         productData = ProductData() 
         productData.save_product(self.shampoo)
         data = productData.get_product(1)
+        self.assertIsInstance(data, list)
         for el in data:
         
-            self.assertIsInstance(data, tuple)
-            self.assertEqual(el, (1, "coconut oil Shampoo", 7.99, "silky smoothe hair treatment shampoo"),)
+            self.assertEqual(el, (1, "coconut oil shampoo", 7.99, "silky smoothe hair treatment shampoo"))
 
-
+    
 
 
 
