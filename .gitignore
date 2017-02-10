@@ -1,3 +1,5 @@
 .DS_Store
 __pycache__
 Bangazon.db
+*.db
+*.db-journal
