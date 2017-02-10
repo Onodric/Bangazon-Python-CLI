@@ -1,4 +1,4 @@
-
+from cli.activeCustomerView import CustomerSelection
 
 
 class MainMenu():
@@ -14,23 +14,31 @@ class MainMenu():
         running = True
 
         while running:
+            print("""
+
+
+
+
+                
+                """)
             selected_option = input("""
-        *********************************************************
-        **  Welcome to Bangazon! Command Line Ordering System  **
-        *********************************************************
-        1. Create a customer account
-        2. Choose active customer
-        3. Create a payment option
-        4. Add product to shopping cart
-        5. Complete an order
-        6. See product popularity
-        7. Leave Bangazon!
-        >""")
+*********************************************************
+**  Welcome to Bangazon! Command Line Ordering System  **
+*********************************************************
+1. Create a customer account
+2. Choose active customer
+3. Create a payment option
+4. Add product to shopping cart
+5. Complete an order
+6. See product popularity
+7. Leave Bangazon!
+>""")
 
             if selected_option == "1":
                 print("Create a customer account")
             elif selected_option == "2":
-                print("Choose active customer")
+                choose_customer = CustomerSelection()
+                choose_customer.run()
             elif selected_option == "3":
                 print("Create a payment option")
             elif selected_option == "4":
