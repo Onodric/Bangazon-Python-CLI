@@ -1,8 +1,10 @@
 import unittest
+import os
+import sqlite3
 import sys
 sys.path.append("../")
-from Models.Product import Product
-from DB.ProductData import ProductData
+from models.Product import Product
+from db.product_data import ProductData
 
 
 
@@ -16,14 +18,22 @@ class TestProduct(unittest.TestCase):
         self.assertIsNotNone(self.shampoo.name)
         self.assertIsNotNone(self.shampoo.description)
 
-
+    def test_product_attributes_can_be_retrieved(self):
+        self.assertEqual(self.shampoo.get_name(), "Coconut Oil Shampoo" )
+        self.assertEqual(self.shampoo.get_price(), "7.99")
+        self.assertEqual(self.shampoo.get_description(),"silky smoothe hair treatment shampoo" )
 
     def test_product_can_be_saved(self):
         productData = ProductData() 
         productData.save_product(self.shampoo)
-        data = productData.get_product(self.shampoo)
+        data = productData.get_product(1)
+        for el in data:
+        
+            self.assertIsInstance(data, tuple)
+            self.assertEqual(el, (1, "coconut oil Shampoo", 7.99, "silky smoothe hair treatment shampoo"),)
 
-        self.assertIsInstance(data, tuple)
+
+
 
 
 
