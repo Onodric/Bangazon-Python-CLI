@@ -3,7 +3,15 @@ sys.path.append("../")
 # from db.data_man import DataMan
 
 class CustomerSelection():
+	"""Class to contain the Bangazon Customer Selection view. After running the file, the CustomerSelection.run() method is called. 
+
+	Author: Sam Phillips
+	"""
 	def run(self):
+		"""
+		CustomerSelection.run() method prompts the user to select a customer from a list of customers. This customer is then set as the active customer by first making a call to the database to make sure that no other customers are active. It then makes a call to the database to set the selected customer as active.
+		"""
+
 		# data_man = DataMan()
 		# all_customers = data_man.get_all_customers()
 
