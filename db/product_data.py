@@ -52,7 +52,7 @@ class ProductData():
 
         return products
 
-    def get_all_product_(self):
+    def get_all_products(self):
 
         with sqlite3.connect('bangazon.db') as proc:
             cursor = proc.cursor()
