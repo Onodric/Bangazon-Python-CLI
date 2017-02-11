@@ -5,6 +5,19 @@ from cli import product_cli
 # from db.initializer.sql import *
 
 class TestOrderData(unittest.TestCase):
+	"""
+    Tests for class ProductPopularity in cli file
+
+
+    Methods:
+    test_can_get_product_data
+    test_can_retrieve_total_revenue
+    test_can_retrieve_num_of_customers
+    test_can_retrieve_total_num_of_orders
+
+    Author: Julia Kim-Chung
+    """
+
 	@classmethod
 	def setUpClass(self):
 		self.product_p = product_cli.ProductPopularity()
