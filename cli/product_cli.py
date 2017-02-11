@@ -7,6 +7,7 @@ class ProductPopularity():
         self.order_data = Orders.get_all_orders()
         self.product_data = Product.get_all_products()
         self.line_items = Line_items.get_all()
+        
 
     def get_total_revenue(self):
         revenue = dict()
