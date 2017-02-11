@@ -1,50 +1,67 @@
-# from db.order_data import OrderDB
+import sys
+sys.path.append("../")
+# from db.order_data import *
 # from db.product_data import *
 
 class ProductPopularity():
+    """
+        This class is to build the chart for product popularity.
+        Methods:
+        def get_total_revenue
+        def get_total_num_of_customers
+        def get_total_num_of_orders
+
+        Author: Julia Kim-Chung
+    """
 
     def __init__(self):
+
         self.order_data = Orders.get_all_orders()
         self.product_data = Product.get_all_products()
         self.line_items = Line_items.get_all()
-        
+        self.customer_data = Customer.get_all_customers()
+
 
     def get_total_revenue(self):
         revenue = dict()
         for order in order_data:
-          for item in line_items:
-            if order[0] == item[1]:
-              for product in product_data:
-                if product[0] == item[2]:
-                  revenue[product[0]] =list()
-                  revenue[product[0]].append(product[2])
-                  sum(revenue[product[0]])
+            for item in line_items:
+                if order[0] == item[1]:
+                    for product in product_data:
+                        if product[0] == item[2]:
+                            revenue[product[1]] =list()
+                            revenue[product[1]].append(product[2])
+                            sum(revenue[product[1]])
 
     return revenue
 
 
     def get_total_num_of_customers(self):
-        customers = list()
+        customers = dict()
         for order in order_data:
-          for item in line_item:
-            if order[0] == item[1]:
-              for product in product_data:
-                if product[0] == item[2]:
-                  if order[3] == item[1][3]:
-                    customers.append(order[3])
-    return (len(customers))
+            for item in line_items:
+                if order[0] == item[1]:
+                    for product in product_data:
+                        for customer in customer_data:
+                            if product[0] == item[2]:
+                                if order[3] == customer[0]:
+                                    customers[product[1]] ==list()
+                                    customers[product[1]].append(order[3])
+                                    customers[product[1]] == len(cutomers[product[1]])
+    return customers
 
 
     def get_total_num_of_orders(self):
-        orders = list()
+        orders = dict()
         for order in order_data:
-          for item in line_item:
+          for item in line_items:
             if order[0] == line_item[1]:
                 for product in product_data:
                     if product[0] == item[2]:
-                        orders.append(order[0])
-    return (len(orders))
-
+                        orders[product[1]] == list()
+                        orders[product[1]].append(order[0])
+                        orders[product[1]] == len(orders[product[1]])
+    return orders
 
 
     
