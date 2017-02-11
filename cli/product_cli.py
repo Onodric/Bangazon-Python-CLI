@@ -16,9 +16,12 @@ class ProductPopularity():
 
     def __init__(self):
 
+        """
+        """
+
         self.order_data = Orders.get_all_orders()
         self.product_data = Product.get_all_products()
-        self.line_items = Line_items.get_all()
+        self.line_items = Line_items.get_all_line_items()
         self.customer_data = Customer.get_all_customers()
 
 
@@ -64,7 +67,14 @@ class ProductPopularity():
     return orders
 
 
-    
+    def run(self):
+        """
+        ProductPopularity.run() method prompts to get total revenue, number of orders, number of customers on a product
+        
+        """
+
+        
+
 
     
 
