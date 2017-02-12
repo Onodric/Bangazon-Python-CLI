@@ -73,7 +73,9 @@ class ProductPopularity():
         
         """
 
-        
+        total_revenue = ProductPopularity.get_total_revenue()
+        total_customers = ProductPopularity.get_total_num_of_customers()
+        total_orders = ProductPopularity.get_total_num_of_orders()
 
 
     
