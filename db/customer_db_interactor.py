@@ -1,4 +1,7 @@
 import sqlite3
+import sys
+sys.path.append("../")
+import configuration
 
 class Customer_db():
 	"""
@@ -15,7 +18,7 @@ class Customer_db():
 		excepts an instance of customer as an argument
 		saves the new instance of customer to db
 		"""
-		with sqlite3.connect('../db/bangazon.db') as thingy:
+		with sqlite3.connect(configuration.database_path) as thingy:
 			cursor = thingy.cursor()
 			try:
 				cursor.execute("SELECT * FROM Customer")
@@ -49,7 +52,7 @@ class Customer_db():
 		"""
 		returns all customers in db
 		"""
-		with sqlite3.connect('../db/bangazon.db') as thingies:
+		with sqlite3.connect(configuration.database_path) as thingies:
 			cursor = thingies.cursor()
 			try:
 				cursor.execute("SELECT * FROM Customer")
@@ -63,7 +66,7 @@ class Customer_db():
 		accepts a customer's primary key as an argument
 		changes that customers active status to true
 		"""
-		with sqlite3.connect('../db/bangazon.db') as thingies:
+		with sqlite3.connect(configuration.database_path) as thingies:
 			cursor = thingies.cursor()
 			try:
 				cursor.execute('UPDATE Customer SET active = 1 WHERE customer_id = {}'.format(thingy))
@@ -75,7 +78,7 @@ class Customer_db():
 		when called, will filter through the Customer Table and change all customers who have active 
 		as true to false
 		"""
-		with sqlite3.connect('../db/bangazon.db') as thingies:
+		with sqlite3.connect(configuration.database_path) as thingies:
 			cursor = thingies.cursor()
 			try:
 				cursor.execute('UPDATE Customer SET active = 0 WHERE active = 1')

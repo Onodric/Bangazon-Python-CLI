@@ -9,4 +9,4 @@ database_path = os.path.join(package_dir, 'db/bangazon.db')
 
 
 
-# configuration.database_path 
+# configuration.database_path
