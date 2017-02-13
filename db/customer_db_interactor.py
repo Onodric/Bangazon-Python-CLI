@@ -1,9 +1,21 @@
 import sqlite3
 
 class Customer_db():
+	"""
+	Customer_db is a class module for  interacting with the Customer table in the bangazon.db file
+	methods:
+		save_new_customer
+		get_all_customers
+		update_active_true
+		update_active_false
+	"""
 
 	def save_new_customer(self, Customer):
-		with sqlite3.connect('bangazon.db') as thingy:
+		"""
+		excepts an instance of customer as an argument
+		saves the new instance of customer to db
+		"""
+		with sqlite3.connect('../db/bangazon.db') as thingy:
 			cursor = thingy.cursor()
 			try:
 				cursor.execute("SELECT * FROM Customer")
@@ -34,7 +46,10 @@ class Customer_db():
 					)) 
 
 	def get_all_customers():
-		with sqlite3.connect('bangazon.db') as thingies:
+		"""
+		returns all customers in db
+		"""
+		with sqlite3.connect('../db/bangazon.db') as thingies:
 			cursor = thingies.cursor()
 			try:
 				cursor.execute("SELECT * FROM Customer")
@@ -42,3 +57,30 @@ class Customer_db():
 			except:
 				pass
 			return customers
+
+	def update_active_true(self, thingy):
+		"""
+		accepts a customer's primary key as an argument
+		changes that customers active status to true
+		"""
+		with sqlite3.connect('../db/bangazon.db') as thingies:
+			cursor = thingies.cursor()
+			try:
+				cursor.execute('UPDATE Customer SET active = 1 WHERE customer_id = {}'.format(thingy))
+			except:
+				pass
+
+	def update_active_false(self):
+		"""
+		when called, will filter through the Customer Table and change all customers who have active 
+		as true to false
+		"""
+		with sqlite3.connect('../db/bangazon.db') as thingies:
+			cursor = thingies.cursor()
+			try:
+				cursor.execute('UPDATE Customer SET active = 0 WHERE active = 1')
+			except:
+				pass
+
+
+
