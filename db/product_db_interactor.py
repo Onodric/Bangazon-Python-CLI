@@ -64,7 +64,7 @@ class ProductData():
                """)
             results = cursor.fetchall()
 
-            return results
+        return results
             
 
 

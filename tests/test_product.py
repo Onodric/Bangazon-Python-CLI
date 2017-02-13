@@ -4,7 +4,7 @@ import sqlite3
 import sys
 sys.path.append("../")
 from models.Product import Product
-from db.product_db_interactor.py import ProductData
+from db.product_db_interactor import ProductData
 
 
 
