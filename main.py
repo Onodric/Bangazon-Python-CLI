@@ -44,8 +44,8 @@ class MainMenu():
             elif selected_option == "5":
                 print("complete an order")
             elif selected_option == "6":
-                product_pop = ProductPopularity()
-                product_pop.run()
+                # product_pop = ProductPopularity()
+                # product_pop.run()
             elif selected_option == "7":
                 print("goodbye")
                 running = False
