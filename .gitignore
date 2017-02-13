@@ -3,4 +3,5 @@ __pycache__
 Bangazon.db
 *.db
 *.db-journal
+filepath.py
 

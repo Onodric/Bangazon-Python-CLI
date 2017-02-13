@@ -1,6 +1,5 @@
 import sqlite3
-import sys
-sys.path.append("../")
+from .filepath import *
 from models.payment import Payment
 
 
@@ -8,19 +7,21 @@ class PaymentDatabaseInteractor():
 
 
     def save_payment(self, payment):
-        with sqlite3.connect("/Users/daniadkins/workspace/group-projects/bangazon_cli/bangazon-cli/db/bangazon.db") as pago:
+        with sqlite3.connect(filepath) as pago:
             cursor = pago.cursor()
+            try:
+                cursor.execute("""
+                    INSERT INTO Payment VALUES (null, '{}', '{}', {})
+                """.format(
+                            payment.get_account_number(),
+                            payment.get_payment_type(),
+                            payment.get_customer_id()))
 
-            cursor.execute("""
-                INSERT INTO Payment VALUES (null, '{}', '{}', {})
-            """.format(
-                        payment.get_account_number(),
-                        payment.get_payment_type(),
-                        payment.get_customer_id()))
-
+            except sqlite3.OperationalError:
+                return False
 
     def get_all_payments(self):
-        with sqlite3.connect("/Users/daniadkins/workspace/group-projects/bangazon_cli/bangazon-cli/db/bangazon.db") as pago:
+        with sqlite3.connect(filepath) as pago:
             cursor = pago.cursor()
 
         try:
