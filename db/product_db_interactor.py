@@ -1,5 +1,7 @@
 import sqlite3
-
+import sys
+sys.path.append("../")
+import configuration
 
 
 class ProductData():
@@ -11,7 +13,7 @@ class ProductData():
         """
         This is a method to save product data
         """
-        with sqlite3.connect('../db/bangazon.db') as proc:
+        with sqlite3.connect(configuration.database_path) as proc:
             cursor = proc.cursor()
 
             try: 
@@ -41,7 +43,7 @@ class ProductData():
         This is a method to get product data
         """
 
-        with sqlite3.connect('../db/bangazon.db') as proc:
+        with sqlite3.connect(configuration.database_path) as proc:
             cursor = proc.cursor()
 
             cursor.execute("""SELECT * FROM Product p
@@ -57,7 +59,7 @@ class ProductData():
         This is a methid to get all produdct data
         """
 
-        with sqlite3.connect('../db/bangazon.db') as proc:
+        with sqlite3.connect(configuration.database_path) as proc:
             cursor = proc.cursor()
 
             cursor.execute(""" SELECT product_id, price, name FROM Product p
