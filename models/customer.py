@@ -7,7 +7,7 @@ class Customer():
 		self.state = state
 		self.postal = postal
 		self.phone = phone
-		self.active = False
+		self.active = 0
 
 	def get_current_customer(self):
 		return[(self.name, self.address, self.city, self.state, self.postal, self.phone, self.active)]
