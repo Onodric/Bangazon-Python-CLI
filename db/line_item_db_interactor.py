@@ -45,7 +45,7 @@ class LineItemDB():
 
             try:
                 cursor.execute("""
-                    INSERT INTO LineItem VALUES ({}, '{}', '{}')
+                    INSERT INTO LineItem VALUES ({}, {}, {})
                     """
                     .format(None, order[0], product[0]))
             except sqlite3.OperationalError:

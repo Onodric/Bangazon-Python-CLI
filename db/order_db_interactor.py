@@ -37,7 +37,7 @@ class OrderDB():
                 return "There was an error reading from the Orders table"
 
 
-    def write_one_order(self, order):
+    def write_one_order(self, input_order):
         """
         Method to write one order to the Order table
         """
@@ -47,15 +47,27 @@ class OrderDB():
 
             try:
                 cursor.execute("""
-                    INSERT INTO Order VALUES ({}, {}, {}, {})
-                    """.format(order[0], order[1], order[2], order[3]))
-                return orders
+                    INSERT INTO LineItem VALUES ({}, {}, '{}', {})
+                    """
+                    .format(None, input_order[0], 'null', input_order[2]))
             except sqlite3.OperationalError:
                 return "There was an error reading from the Orders table"
 
 
-    def close_one_order(self, order, payment_method):
+    def close_one_order(self, input_order, payment_method):
         """
         Method to return all orders in the Order table
         """
-        pass
+
+        with sqlite3.connect("../db/bangazon.db") as db:
+            cursor = db.cursor()
+
+            try:
+                cursor.execute("""
+                    UPDATE Order SET is_closed=1,
+                        payment_id=payment_method[0],
+                        customer_id=input_order[3]
+                    WHERE orders_id=input_order[0]""")
+            except sqlite3.OperationalError:
+                return "There was an error reading from the Orders table"
+

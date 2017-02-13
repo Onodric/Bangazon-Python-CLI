@@ -128,7 +128,7 @@ class TestShoppingCart(unittest.TestCase):
         format of tuple:
         (pk_order, is_closed_int, fk_payment, fk_customer) 
         """
-        results_expected = [(1, 0, 1, 1), (2, 0, 2, 2), (3, 1, 3, 3)]
+        results_expected = [(1, 0, 'null', 1), (2, 0, 'null', 2), (3, 1, 3, 3)]
         results_actual = self.current_order_db.get_all_orders()
         self.assertEqual(result_expected, results_actual)
 
@@ -142,7 +142,7 @@ class TestShoppingCart(unittest.TestCase):
         """
         current_order = (0, 0, 3)
         self.current_order_db.write_one_order(current_order)
-        results_expected = (4, 0, 0, 3)
+        results_expected = (4, 0, 'null', 3)
         results_actual = self.current_order_db.get_all_orders()
         self.assertIn(results_expected, results_actual)
 
