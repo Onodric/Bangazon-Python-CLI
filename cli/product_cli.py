@@ -1,7 +1,7 @@
 import sys
 sys.path.append("../")
 # from db.order_data import *
-# from db.product_data import *
+# from db.product_db_interactor import *
 
 class ProductPopularity():
     """
