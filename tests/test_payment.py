@@ -13,7 +13,7 @@ class TestPayment(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.juan_payment = Payment("Visa", "12345678", 1)
-        self.taylor_payment = Payment("Mastercard", "87654321", 2)
+        self.taylor_payment = Payment("Mastercard", "87654321", 1)
 
     def test_user_payment_is_a_user_payment(self):
         """
@@ -47,6 +47,19 @@ class TestPayment(unittest.TestCase):
         saved_payment = PaymentDatabaseInteractor()
         saved_payment.save_payment(self.juan_payment)
         self.assertIn((4, "12345678", "Visa", 1), saved_payment.get_all_payments())
+
+    def test_all_payments_can_be_retreived(self):
+        """
+        A test method that tests that all payments can be retreived from database
+        Author: Dani Adkins
+        """
+        get_payments = PaymentDatabaseInteractor()
+        get_payments.save_payment(self.juan_payment)
+        get_payments.save_payment(self.taylor_payment)
+
+        all_payments = get_payments.get_all_payments()
+
+        self.assertIn((30, "Mastercard", "87654321", 1), all_payments)
 
 
 
