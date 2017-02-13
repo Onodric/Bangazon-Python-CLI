@@ -73,7 +73,11 @@ class TestShoppingCart(unittest.TestCase):
         Method to test whether the ShoppingCart object return the payment
             method
         """
-        self.assertEqual(self.current_cart.get_payment_method(), ())
+        # print(self.current_cart.get_payment_method())
+        new_cart = ShoppingCart()
+        self.assertEqual(self.new_cart.get_payment_method(), ())
+        # self.assertEqual(self.current_cart.get_payment_method(), ())
+        
 
 
     def test_get_is_closed_should_return_is_closed_flag(self):
@@ -81,7 +85,7 @@ class TestShoppingCart(unittest.TestCase):
         Method to test whether the ShoppingCart object can return the
             is_closed flag
         """
-        self.assertFalse(self.current_cart.get_is_closed())
+        self.assertEqual(self.current_cart.get_is_closed(self.current_order), 0)
 
 
     def test_ShoppingCart_should_add_product(self):
@@ -117,8 +121,8 @@ class TestShoppingCart(unittest.TestCase):
         Method to test whether the shopping cart can be closed
         """
         self.current_cart.accept_payment(self.payment_method)
-        self.assertEqual(self.current_cart.get_payment_method(), [(1, "Visa", "1234567812345678", 1)])
-        self.assertTrue(self.current_cart.order_is_closed())
+        self.assertEqual(self.current_cart.get_payment_method(), (1, "Visa", "1234567812345678", 1))
+        self.assertEqual(self.current_cart.order_is_closed(), 1)
 
 
     def test_OrderDB_should_return_all_orders(self):
@@ -130,7 +134,7 @@ class TestShoppingCart(unittest.TestCase):
         """
         results_expected = [(1, 0, 'null', 1), (2, 0, 'null', 2), (3, 1, 3, 3)]
         results_actual = self.current_order_db.get_all_orders()
-        self.assertEqual(result_expected, results_actual)
+        self.assertEqual(results_expected, results_actual)
 
 
     def test_OrderDB_should_write_new_order(self):

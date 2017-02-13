@@ -23,7 +23,7 @@ class ShoppingCart():
     """
 
     def __init__(self, customer=tuple(), line_items=list(),
-            payment_method=tuple()):
+            payment_method=tuple(), current_order=tuple()):
         """
         Method to initialize the class with empty default values
 
@@ -40,6 +40,7 @@ class ShoppingCart():
         self.__line_items = line_items
         self.__payment_method = payment_method
         self.__is_closed = 0
+        self.__current_order = current_order
 
 
     def get_customer(self):

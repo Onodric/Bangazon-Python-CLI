@@ -23,7 +23,7 @@ class LineItemDB():
         Method to return all lineitems in the LineItem table
         """
 
-        with sqlite3.connect("../db/bangazon.db") as db:
+        with sqlite3.connect('bangazon.db') as db:
             cursor = db.cursor()
 
             try:
@@ -33,14 +33,13 @@ class LineItemDB():
             except sqlite3.OperationalError:
                 return "There was an Error reading from the Line Items Table"
 
-
     def write_one_line_item(self, order, product):
         """
         Method to write one line item to the LineItem table
         """
         pass
         
-        with sqlite3.connect("../db/bangazon.db") as db:
+        with sqlite3.connect('bangazon.db') as db:
             cursor = db.cursor()
 
             try:

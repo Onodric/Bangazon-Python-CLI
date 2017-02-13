@@ -26,7 +26,7 @@ class OrderDB():
         Method to return all orders in the Order table
         """
 
-        with sqlite3.connect("../db/bangazon.db") as db:
+        with sqlite3.connect('./bangazon.db') as db:
             cursor = db.cursor()
 
             try:
@@ -42,7 +42,7 @@ class OrderDB():
         Method to write one order to the Order table
         """
 
-        with sqlite3.connect("../db/bangazon.db") as db:
+        with sqlite3.connect('./bangazon.db') as db:
             cursor = db.cursor()
 
             try:
@@ -51,7 +51,7 @@ class OrderDB():
                     """
                     .format(None, input_order[0], 'null', input_order[2]))
             except sqlite3.OperationalError:
-                return "There was an error reading from the Orders table"
+                return "There was an error writing to the Orders table"
 
 
     def close_one_order(self, input_order, payment_method):
@@ -59,7 +59,7 @@ class OrderDB():
         Method to return all orders in the Order table
         """
 
-        with sqlite3.connect("../db/bangazon.db") as db:
+        with sqlite3.connect('bangazon.db') as db:
             cursor = db.cursor()
 
             try:
@@ -69,5 +69,5 @@ class OrderDB():
                         customer_id=input_order[3]
                     WHERE orders_id=input_order[0]""")
             except sqlite3.OperationalError:
-                return "There was an error reading from the Orders table"
+                return "There was an error writing to the Orders table"
 
