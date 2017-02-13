@@ -46,7 +46,7 @@ class TestPayment(unittest.TestCase):
         """
         saved_payment = PaymentDatabaseInteractor()
         saved_payment.save_payment(self.juan_payment)
-        self.assertIn((4, "Visa", "12345678", 1), saved_payment.get_all_payments())
+        self.assertIn((4, "12345678", "Visa", 1), saved_payment.get_all_payments())
 
 
 
