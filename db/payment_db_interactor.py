@@ -1,13 +1,10 @@
 import sqlite3
-from .filepath import *
-from models.payment import Payment
 
 
 class PaymentDatabaseInteractor():
 
-
     def save_payment(self, payment):
-        with sqlite3.connect(filepath) as pago:
+        with sqlite3.connect('../db/bangazon.db') as pago:
             cursor = pago.cursor()
             try:
                 cursor.execute("""
@@ -21,7 +18,7 @@ class PaymentDatabaseInteractor():
                 return False
 
     def get_all_payments(self):
-        with sqlite3.connect(filepath) as pago:
+        with sqlite3.connect('../db/bangazon.db') as pago:
             cursor = pago.cursor()
 
         try:
