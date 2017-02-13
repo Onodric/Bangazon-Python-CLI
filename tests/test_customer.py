@@ -2,13 +2,12 @@ import unittest
 import sys
 sys.path.append("../")
 from models.customer import Customer
+from db.customer_db_interactor import Customer_db
 
 class TestCustomer(unittest.TestCase):
 	"""
 	customer should have a:
-	name
-	street address, city, state, zipcode
-	phone #
+	name, street address, city, state, zipcode, phone #, is active should default to false
 	"""
 	@classmethod
 	def setUpClass(self):
@@ -35,7 +34,17 @@ class TestCustomer(unittest.TestCase):
 		self.assertEqual('TN', self.me.state)
 		self.assertEqual("11111", self.me.postal)
 		self.assertEqual("666-6666", self.me.phone)
-		self.assertEqual(False, self.me.active)
+		self.assertEqual(0, self.me.active)
+
+	def test_can_customer_be_saved_and_returned(self):
+		Customer_db().save_new_customer(self.me)
+		data = Customer_db.get_all_customers()
+		dataList = len(data)
+		targetData = data[dataList -1]
+		dummyTestData = (dataList, "Me", "500 interstate blvd", "Nashville", "TN", 11111, "666-6666", 0)
+		self.assertTupleEqual(dummyTestData, targetData)
+
+
 
 
 
