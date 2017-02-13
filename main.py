@@ -1,4 +1,4 @@
-from cli.activeCustomerView import CustomerSelection
+from cli.active_customer_cli import CustomerSelection
 
 
 class MainMenu():
