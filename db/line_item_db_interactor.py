@@ -12,10 +12,11 @@ class LineItemDB():
             Argument: line_item, a tuple of line item data
     """
 
-    def get_all_line_items():
+    def get_all_line_items(self):
         """
         Method to return all lineitems in the LineItem table
         """
+        pass
 
         # with sqlite3.connect("../db/bangazon.db") as db:
         #     cursor = db.cursor()
@@ -28,11 +29,12 @@ class LineItemDB():
         #         return False
 
 
-    def write_one_line_item(self, line_item):
+    def write_one_line_item(self, order, product):
         """
         Method to write one line item to the LineItem table
         """
-
+        pass
+        
         # with sqlite3.connect("../db/bangazon.db") as db:
         #     cursor = db.cursor()
 

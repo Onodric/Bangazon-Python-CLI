@@ -3,6 +3,7 @@ import sys
 sys.path.append("../")
 from models.shopping_cart import ShoppingCart
 from db.order_db_interactor import OrderDB
+from db.line_item_db_interactor import LineItemDB
 
 
 class TestShoppingCart(unittest.TestCase):
@@ -47,6 +48,8 @@ class TestShoppingCart(unittest.TestCase):
         self.product2 = (2, "FooBar", 10, "foobar widget")
         self.payment_method = (1, "Visa", "1234567812345678", 1)
         self.current_cart = ShoppingCart(customer=self.current_customer)
+        self.current_order_db = OrderDB()
+        self.current_line_item_db = LineItemDB()
 
 
     def test_current_cart_should_be_ShoppingCart_object(self):
@@ -89,7 +92,7 @@ class TestShoppingCart(unittest.TestCase):
         self.assertEqual(self.current_cart.get_line_items(), [])
         self.current_cart.add_product(self.product1)
         self.assertEqual(self.current_cart.get_line_items(), [self.product1])
-        self.assertEqual(self.current_cart.get_line_items(), [self.product1, self.product2])
+        # self.assertEqual(self.current_cart.get_line_items(), [self.product1, self.product2])
 
 
     def test_get_line_items_should_return_all_line_items(self):
@@ -98,7 +101,7 @@ class TestShoppingCart(unittest.TestCase):
             items
         """
         self.current_cart.add_product(self.product2)
-        self.assertEqual(self.current_cart.get_line_items,
+        self.assertEqual(self.current_cart.get_line_items(),
             [self.product1, self.product2])
 
 
@@ -110,7 +113,7 @@ class TestShoppingCart(unittest.TestCase):
         self.assertEqual(total, 15)
 
 
-    def test_ShoppingCart_should_accept_payment_method(self, payment):
+    def test_ShoppingCart_should_accept_payment_method(self):
         """
         Method to test whether the shopping cart can be closed
         """
@@ -126,8 +129,8 @@ class TestShoppingCart(unittest.TestCase):
         format of tuple:
         (pk_order, is_closed_int, fk_payment, fk_customer) 
         """
-        result_expected = [(1, 0, 1, 1), (2, 0, 2, 2), (3, 1, 3, 3)]
-        results_actual = orderDB.get_all_orders()
+        results_expected = [(1, 0, 1, 1), (2, 0, 2, 2), (3, 1, 3, 3)]
+        results_actual = self.current_order_db.get_all_orders()
         self.assertEqual(result_expected, results_actual)
 
 
@@ -136,21 +139,25 @@ class TestShoppingCart(unittest.TestCase):
         Method to test whether the Order DB Interactor can create a new order
         
         format of tuple:
-        (pk_order, is_closed_int, fk_payment, fk_customer) 
+        (pk_order (autoIncrement!), is_closed_int, fk_payment, fk_customer) 
         """
-        self.current_order = ()
+        current_order = (0, 0, 3)
+        self.current_order_db.write_one_order(current_order)
+        results_expected = (4, 0, 0, 3)
+        results_actual = self.current_order_db.get_all_orders()
+        self.assertIn(results_expected, results_actual)
 
 
     def test_OrderDB_should_update_order_status(self):
         """
         Method to test whether the Order DB Interactor can update an order
         """
-
-
-    def test_LineItemDB_should_write_new_line_item(self):
-        """
-        Method to test whether the LineItem DB Interactor can write a new line item
-        """
+        current_order = (4, 0, 0, 3)
+        current_payment = (2, "0987654321", "Wells Fargo", 2)
+        self.current_order_db.close_one_order(current_order, current_payment)
+        results_expected = (4, 1, 2, 3)
+        results_actual = self.current_order_db.get_all_orders()
+        self.assertIn(results_expected, results_actual)
 
 
     def test_LineItemDB_should_return_all_line_items(self):
@@ -160,6 +167,19 @@ class TestShoppingCart(unittest.TestCase):
         format of tuple:
         (pk_line_item, fk_order, fk_product) 
         """
+        results_expected = [(1, 1, 1), (2, 2, 2), (3, 3, 3)]
+        results_actual = self.current_line_item_db.get_all_line_items()
+        self.assertEqual(results_expected, results_actual)
+
+
+    def test_LineItemDB_should_write_new_line_item(self):
+        """
+        Method to test whether the LineItem DB Interactor can write a new line item
+        """
+        current_product = (1, "coconut oil shampoo", 7.99, "silky smoothe hair treatment shampoo")
+        current_order = (1, 0, 1, 1)
+        self.current_line_item_db.write_one_line_item(current_order, current_product)
+
 
 if __name__ == '__main__':
     unittest.main()

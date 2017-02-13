@@ -20,8 +20,6 @@ class ShoppingCart():
         add_product
         get_cart_total
         accept_payment
-        get_payment_method
-        order_is_closed
     """
 
     def __init__(self, customer=tuple(), line_items=list(),
@@ -35,8 +33,8 @@ class ShoppingCart():
                 product data
             payment_method: A tuple containing the payment
                 method data
-            is_closed: A boolean indicating that an order has
-                been paid for and has been processed
+            is_closed: An integer indicating that an order has
+                been paid for (1) or is still open (0)
         """
         self.__customer = customer
         self.__line_items = line_items
@@ -45,21 +43,12 @@ class ShoppingCart():
 
 
     def get_customer(self):
-        return
+        """
+        Method to return the customer as an Primary Key integer
 
-
-    def get_line_items(self):
-        return
-
-
-
-    def get_payment_method(self):
-        return
-
-
-
-    def get_is_closed(self):
-        return
+        Arguments: NONE
+        """
+        return self.__customer
 
 
     def get_line_items(self):
@@ -69,6 +58,25 @@ class ShoppingCart():
         Arguments: NONE
         """
         return self.__line_items
+
+
+    def get_payment_method(self):
+        """
+        Method to return payment method as a Primary Key integer
+
+        Arguments: NONE
+        """
+        return self.__payment_method
+
+
+    def get_is_closed(self):
+        """
+        Method to return order closed status as an integer:
+            open (0) or closed (1)
+
+        Arguments: NONE
+        """
+        return self.__is_closed
 
 
     def add_product(self, product):
@@ -106,22 +114,3 @@ class ShoppingCart():
 
         self.__payment_method = payment_method
         self.__is_closed = True
-
-
-    def get_payment_method(self):
-        """
-        Method to return the cart's payment method as a tuple
-        
-        Arguments: NONE
-        """
-        return self.__payment_method
-
-
-    def order_is_closed(self):
-        """
-        Method to return the cart's closed status as a boolean
-        
-        Arguments: NONE
-        """
-
-        return self.__is_closed
