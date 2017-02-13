@@ -28,8 +28,8 @@ class TestProduct(unittest.TestCase):
         Method to setup global values needed for all tests
 
         """
-        self.shampoo  = Product("Coconut Oil Shampoo", "7.99", "silky smoothe hair treatment shampoo")
         self.guitar   = Product('Electric Guitar', 3.50, 'Fun way to make music.')
+        self.shampoo  = Product("Coconut Oil Shampoo", 7.99, "silky smoothe hair treatment shampoo")
 
     def test_product_has_all_the_attributes(self):
         """
@@ -45,7 +45,7 @@ class TestProduct(unittest.TestCase):
         Method to test if each get_name, get_price, get_desciption method can retrieve each attributes
         """
         self.assertEqual(self.shampoo.get_name(), "Coconut Oil Shampoo" )
-        self.assertEqual(self.shampoo.get_price(), "7.99")
+        self.assertEqual(self.shampoo.get_price(), 7.99)
         self.assertEqual(self.shampoo.get_description(),"silky smoothe hair treatment shampoo" )
 
     def test_product_can_be_saved(self):
@@ -55,12 +55,11 @@ class TestProduct(unittest.TestCase):
         """
         productData = ProductData() 
         productData.save_product(self.shampoo)
-        data = productData.get_product(1)
+        data = productData.get_all_products()
+        test_product = data[len(data)-1]
         self.assertIsInstance(data, list)
-        for el in data:
-        
-            self.assertEqual(el, (1, "coconut oil shampoo", 7.99, "silky smoothe hair treatment shampoo"))
-
+        test_index = len(data)
+        self.assertEqual(test_product, (test_index,7.99, "Coconut Oil Shampoo"))
     
     def test_can_get_all_saved_product(self):
         """
@@ -70,8 +69,16 @@ class TestProduct(unittest.TestCase):
         prodData = ProductData()
         prodData.save_product(self.guitar)
         data = prodData.get_all_products()
-        self.assertEqual(len(data), 62)
-        self.assertIn((52, 3.50,'Electric Guitar'), data)
+
+        data_index_1 = len(data)
+        self.Electric   = Product('Electric Guitar', 5.50, 'Fun way to make music.')
+        prodData.save_product(self.Electric)
+        data = prodData.get_all_products()
+
+        data_index_2 = len(data)
+
+        self.assertEqual(data_index_2, data_index_1+1 )
+        self.assertIn((data_index_2, 5.50,'Electric Guitar'), data)
         
 
 if __name__ =='__main__':
