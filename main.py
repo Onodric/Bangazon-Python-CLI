@@ -1,5 +1,5 @@
 from cli.activeCustomerView import CustomerSelection
-
+from cli.product_cli import ProductPopularity
 
 class MainMenu():
     """Class to contain the Bangazon CLI user input loop. After running the
@@ -44,7 +44,8 @@ class MainMenu():
             elif selected_option == "5":
                 print("complete an order")
             elif selected_option == "6":
-                print("see product popularity")
+                product_pop = ProductPopularity()
+                product_pop.run()
             elif selected_option == "7":
                 print("goodbye")
                 running = False
