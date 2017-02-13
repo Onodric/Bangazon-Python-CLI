@@ -53,6 +53,9 @@ class ProductData():
         return products
 
     def get_all_products(self):
+        """
+        This is a methid to get all produdct data
+        """
 
         with sqlite3.connect('bangazon.db') as proc:
             cursor = proc.cursor()
