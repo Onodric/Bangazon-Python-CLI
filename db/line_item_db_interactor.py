@@ -31,7 +31,8 @@ class LineItemDB():
                 line_items = cursor.fetchall()
                 return line_items
             except sqlite3.OperationalError:
-                return "There was an Error reading from the Line Items Table"
+                pass
+                # return "There was an Error reading from the Line Items Table"
 
     def write_one_line_item(self, order, product):
         """
@@ -48,4 +49,5 @@ class LineItemDB():
                     """
                     .format(None, order[0], product[0]))
             except sqlite3.OperationalError:
-                return "There was an Error writing to the Line Items Table"
+                pass
+                # return "There was an Error writing to the Line Items Table"

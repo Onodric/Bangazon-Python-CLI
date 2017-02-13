@@ -160,7 +160,7 @@ class TestShoppingCart(unittest.TestCase):
         self.current_order_db.close_one_order(current_order, current_payment)
         results_expected = (4, 1, 2, 3)
         results_actual = self.current_order_db.get_all_orders()
-        self.assertIn(results_expected, results_actual)
+        self.assertEqual(results_expected, results_actual[3])
 
 
     def test_LineItemDB_should_return_all_line_items(self):
