@@ -4,6 +4,12 @@ class LineItemDB():
     """
     Class for writing to the LineItem table in bangazon.db
 
+    format of order:
+        (pk_order (autoIncrement!), is_closed_int, fk_payment, fk_customer)
+    format of product:
+        (pk_order (autoIncrement!), name (string), price (number), description (string))
+
+
     Author: Ben Marks, Ludicrous Ducks
     
     Methods:
@@ -16,17 +22,16 @@ class LineItemDB():
         """
         Method to return all lineitems in the LineItem table
         """
-        pass
 
-        # with sqlite3.connect("../db/bangazon.db") as db:
-        #     cursor = db.cursor()
+        with sqlite3.connect("../db/bangazon.db") as db:
+            cursor = db.cursor()
 
-        #     try:
-        #         cursor.execute("SELECT * FROM LineItem")
-        #         line_items = cursor.fetchall()
-        #         return line_items
-        #     except sqlite3.OperationalError:
-        #         return False
+            try:
+                cursor.execute("SELECT * FROM LineItem")
+                line_items = cursor.fetchall()
+                return line_items
+            except sqlite3.OperationalError:
+                return "There was an Error reading from the Line Items Table"
 
 
     def write_one_line_item(self, order, product):
@@ -35,9 +40,13 @@ class LineItemDB():
         """
         pass
         
-        # with sqlite3.connect("../db/bangazon.db") as db:
-        #     cursor = db.cursor()
+        with sqlite3.connect("../db/bangazon.db") as db:
+            cursor = db.cursor()
 
-        #     cursor.execute("""
-        #         INSERT INTO LineItem VALUES ('{}', '{}', '{}')
-        #         """.format(None, line_item[0], line_item[1], line_item[2])
+            try:
+                cursor.execute("""
+                    INSERT INTO LineItem VALUES ({}, '{}', '{}')
+                    """
+                    .format(None, order[0], product[0]))
+            except sqlite3.OperationalError:
+                return "There was an Error writing to the Line Items Table"

@@ -92,7 +92,6 @@ class TestShoppingCart(unittest.TestCase):
         self.assertEqual(self.current_cart.get_line_items(), [])
         self.current_cart.add_product(self.product1)
         self.assertEqual(self.current_cart.get_line_items(), [self.product1])
-        # self.assertEqual(self.current_cart.get_line_items(), [self.product1, self.product2])
 
 
     def test_get_line_items_should_return_all_line_items(self):
