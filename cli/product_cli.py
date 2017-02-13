@@ -1,7 +1,7 @@
 import sys
 sys.path.append("../")
-from db.order_db_interactor import *
-from db.customer_db_interactor import *
+# from db.order_db_interactor import *
+# from db.customer_db_interactor import *
 from db.product_db_interactor import *
 
 class ProductPopularity():
