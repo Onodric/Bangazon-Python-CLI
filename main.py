@@ -1,4 +1,5 @@
 from cli.active_customer_cli import CustomerSelection
+from cli.product_cli import ProductPopularity
 
 
 class MainMenu():
@@ -44,7 +45,8 @@ class MainMenu():
             elif selected_option == "5":
                 print("complete an order")
             elif selected_option == "6":
-                print("see product popularity")
+                product_pop = ProductPopularity()
+                product_pop.run()
             elif selected_option == "7":
                 print("goodbye")
                 running = False
