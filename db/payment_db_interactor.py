@@ -4,11 +4,13 @@ import sqlite3
 class PaymentDatabaseInteractor():
     """
     This is a class for payment database interaction
+    Author, Dani Adkins
     """
 
     def save_payment(self, payment):
         """
         This is a method to save payment data
+        Author, Dani Adkins
         """
         with sqlite3.connect('../db/bangazon.db') as pago:
             cursor = pago.cursor()
@@ -26,6 +28,7 @@ class PaymentDatabaseInteractor():
     def get_all_payments(self):
         """
         This is a method to return all payment data
+        Author, Dani Adkins
         """
         with sqlite3.connect('../db/bangazon.db') as pago:
             cursor = pago.cursor()
