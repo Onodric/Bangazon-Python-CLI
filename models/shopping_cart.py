@@ -1,4 +1,3 @@
-
 class ShoppingCart():
     """
     Class defining a customer's shopping cart.
