@@ -109,6 +109,7 @@ class TestShoppingCart(unittest.TestCase):
         total = self.current_cart.get_cart_total()
         self.assertEqual(total, 15)
 
+
     def test_ShoppingCart_should_accept_payment_method(self, payment):
         """
         Method to test whether the shopping cart can be closed
@@ -137,7 +138,7 @@ class TestShoppingCart(unittest.TestCase):
         format of tuple:
         (pk_order, is_closed_int, fk_payment, fk_customer) 
         """
-        self.cur
+        self.current_order = ()
 
 
     def test_OrderDB_should_update_order_status(self):

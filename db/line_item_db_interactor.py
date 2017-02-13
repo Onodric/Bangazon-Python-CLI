@@ -17,7 +17,7 @@ class LineItemDB():
         Method to return all lineitems in the LineItem table
         """
 
-        # with sqlite3.connect("bangazon.db") as db:
+        # with sqlite3.connect("../db/bangazon.db") as db:
         #     cursor = db.cursor()
 
         #     try:
@@ -33,7 +33,7 @@ class LineItemDB():
         Method to write one line item to the LineItem table
         """
 
-        # with sqlite3.connect("bangazon.db") as db:
+        # with sqlite3.connect("../db/bangazon.db") as db:
         #     cursor = db.cursor()
 
         #     cursor.execute("""
