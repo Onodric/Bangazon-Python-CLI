@@ -2,8 +2,14 @@ import sqlite3
 
 
 class PaymentDatabaseInteractor():
+    """
+    This is a class for payment database interaction
+    """
 
     def save_payment(self, payment):
+        """
+        This is a method to save payment data
+        """
         with sqlite3.connect('../db/bangazon.db') as pago:
             cursor = pago.cursor()
             try:
@@ -18,6 +24,9 @@ class PaymentDatabaseInteractor():
                 return False
 
     def get_all_payments(self):
+        """
+        This is a method to return all payment data
+        """
         with sqlite3.connect('../db/bangazon.db') as pago:
             cursor = pago.cursor()
 
