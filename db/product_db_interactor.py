@@ -21,7 +21,7 @@ class ProductData():
                 cursor.execute("""
                 CREATE TABLE `Product`
                 (
-                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    product_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     price NUMBER NOT NULL,
                     description TEXT NOT NULL
@@ -45,7 +45,7 @@ class ProductData():
             cursor = proc.cursor()
 
             cursor.execute("""SELECT * FROM Product p
-                WHERE p.id = {}
+                WHERE p.product_id = {}
                 """.format(product_id))
             products = cursor.fetchall()
 
@@ -60,7 +60,7 @@ class ProductData():
         with sqlite3.connect('../db/bangazon.db') as proc:
             cursor = proc.cursor()
 
-            cursor.execute(""" SELECT id, price, name FROM Product p
+            cursor.execute(""" SELECT product_id, price, name FROM Product p
                """)
             results = cursor.fetchall()
 
