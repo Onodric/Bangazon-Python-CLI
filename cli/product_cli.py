@@ -1,7 +1,7 @@
 import sys
 sys.path.append("../")
 # from db.order_data import *
-# from db.product_data import *
+# from db.product_db_interactor import *
 
 class ProductPopularity():
     """
@@ -77,12 +77,19 @@ class ProductPopularity():
 
         # total_customers = ProductPopularity.get_total_num_of_customers()
         # total_orders = ProductPopularity.get_total_num_of_orders()
+
         # p_total_orders = {  key , value  for (key, value) in total_orders.items() }
 
         print("{}{:^18}{:^11}{:^11}{:^15}".format("Product", "Order", "Customers", "Revenue","") )
         print ( "{:*^55}".format("*"))
         
         print("{}{}{}{}".format(p_total_orders, total_customers[product[1]], total_revenue[product[1]], ""))
+
+        print("{}{:^15}{:^15}{:^15}{:^15}".format("Product", "Order", "Customers", "Revenue","") )
+        print ( "{:*^55}".format("*"))
+        
+        print("{}{:^11}{:^15}{:^15}".format("Baby Powder", 3, 2, "$96.00"))
+
 
 
     if __name__ == '__main__':

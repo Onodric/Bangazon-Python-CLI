@@ -1,5 +1,6 @@
-from cli.activeCustomerView import CustomerSelection
+from cli.active_customer_cli import CustomerSelection
 from cli.product_cli import ProductPopularity
+
 
 class MainMenu():
     """Class to contain the Bangazon CLI user input loop. After running the

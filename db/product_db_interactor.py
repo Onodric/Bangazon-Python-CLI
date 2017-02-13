@@ -62,7 +62,6 @@ class ProductData():
 
             cursor.execute(""" SELECT id, price, name FROM Product p
                """)
-
             results = cursor.fetchall()
 
             return results
