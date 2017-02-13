@@ -76,10 +76,10 @@ class ProductPopularity():
         # total_revenue = ProductPopularity.get_total_revenue()
         # total_customers = ProductPopularity.get_total_num_of_customers()
         # total_orders = ProductPopularity.get_total_num_of_orders()
-        print("{}{:^18}{:^11}{:^11}{:^15}".format("Product", "Order", "Customers", "Revenue","") )
+        print("{}{:^15}{:^15}{:^15}{:^15}".format("Product", "Order", "Customers", "Revenue","") )
         print ( "{:*^55}".format("*"))
         
-        print("{}".format("Baby Powder"))
+        print("{}{:^11}{:^15}{:^15}".format("Baby Powder", 3, 2, "$96.00"))
 
 
     if __name__ == '__main__':
