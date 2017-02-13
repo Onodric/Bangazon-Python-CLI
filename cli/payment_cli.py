@@ -16,14 +16,10 @@ class PaymentSelection():
         print("You entered", payment_type)
 
         account_number = input("Enter account number:")
-        # correct_account_number = input("Is this correct?")
         print("You entered", account_number)
 
         pay = Payment(payment_type, account_number, customer_id)
         PaymentDatabaseInteractor().save_payment(pay)
-
-
-##STRETCH GOAL: need an if statement that says in human terms: if for customer id there is a card entered with payment type and account number the same then spit out an error that says "You already entered that payment type!"
 
 if __name__ == '__main__':
     enter_payment = PaymentSelection()
