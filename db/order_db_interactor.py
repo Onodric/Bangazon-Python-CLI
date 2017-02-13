@@ -1,4 +1,7 @@
 import sqlite3
+import sys
+sys.path.append('../')
+import configuration
 
 class OrderDB():
     """
@@ -26,11 +29,11 @@ class OrderDB():
         Method to return all orders in the Order table
         """
 
-        with sqlite3.connect('bangazon.db') as db:
+        with sqlite3.connect(configuration.database_path) as db:
             cursor = db.cursor()
 
             try:
-                cursor.execute("SELECT * FROM Order")
+                cursor.execute("SELECT * FROM Orders")
                 orders = cursor.fetchall()
                 return orders
             except sqlite3.OperationalError:
@@ -40,19 +43,19 @@ class OrderDB():
 
     def write_one_order(self, input_order):
         """
-        Method to write one order to the Order table
+        Method to write one order to the Orders table
         """
 
-        with sqlite3.connect('bangazon.db') as db:
+        with sqlite3.connect(configuration.database_path) as db:
             cursor = db.cursor()
 
-            try:
-                cursor.execute("""
-                    INSERT INTO LineItem VALUES ({}, {}, '{}', {})
-                    """
-                    .format(None, input_order[0], 'null', input_order[2]))
-            except sqlite3.OperationalError:
-                pass
+            # try:
+            cursor.execute("""
+                INSERT INTO Orders VALUES (null, {}, {}, {})
+                """
+                .format(0, 'null', input_order[2]))
+            # except sqlite3.OperationalError:
+                # pass
                 # return "There was an error writing to the Orders table"
 
 
@@ -61,12 +64,12 @@ class OrderDB():
         Method to return all orders in the Order table
         """
 
-        with sqlite3.connect('bangazon.db') as db:
+        with sqlite3.connect(configuration.database_path) as db:
             cursor = db.cursor()
 
             try:
                 cursor.execute("""
-                    UPDATE Order SET is_closed=1,
+                    UPDATE Orders SET is_closed=1,
                         payment_id=payment_method[0],
                         customer_id=input_order[3]
                     WHERE orders_id=input_order[0]""")

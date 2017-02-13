@@ -1,4 +1,7 @@
 import sqlite3
+import sys
+sys.path.append('../')
+import configuration
 
 class LineItemDB():
     """
@@ -22,8 +25,8 @@ class LineItemDB():
         """
         Method to return all lineitems in the LineItem table
         """
-
-        with sqlite3.connect('bangazon.db') as db:
+        print(configuration.database_path)
+        with sqlite3.connect(configuration.database_path) as db:
             cursor = db.cursor()
 
             try:
@@ -38,16 +41,14 @@ class LineItemDB():
         """
         Method to write one line item to the LineItem table
         """
-        pass
         
-        with sqlite3.connect('bangazon.db') as db:
+        with sqlite3.connect(configuration.database_path) as db:
             cursor = db.cursor()
 
-            try:
-                cursor.execute("""
-                    INSERT INTO LineItem VALUES ({}, {}, {})
-                    """
-                    .format(None, order[0], product[0]))
-            except sqlite3.OperationalError:
-                pass
-                # return "There was an Error writing to the Line Items Table"
+            cursor.execute("""
+                INSERT INTO LineItem VALUES (null, {}, {})
+                """
+                .format(order[0], product[0]))
+            # except sqlite3.OperationalError:
+            #     pass
+            #     # return "There was an Error writing to the Line Items Table"

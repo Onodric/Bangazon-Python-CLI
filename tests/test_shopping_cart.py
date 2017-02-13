@@ -75,7 +75,7 @@ class TestShoppingCart(unittest.TestCase):
         """
         # print(self.current_cart.get_payment_method())
         new_cart = ShoppingCart()
-        self.assertEqual(self.new_cart.get_payment_method(), ())
+        self.assertEqual(new_cart.get_payment_method(), ())
         # self.assertEqual(self.current_cart.get_payment_method(), ())
         
 
@@ -132,7 +132,7 @@ class TestShoppingCart(unittest.TestCase):
         format of tuple:
         (pk_order, is_closed_int, fk_payment, fk_customer) 
         """
-        results_expected = [(1, 0, 'null', 1), (2, 0, 'null', 2), (3, 1, 3, 3)]
+        results_expected = [(1, 0, None, 1), (2, 0, None, 2), (3, 1, 3, 3)]
         results_actual = self.current_order_db.get_all_orders()
         self.assertEqual(results_expected, results_actual)
 
@@ -144,9 +144,9 @@ class TestShoppingCart(unittest.TestCase):
         format of tuple:
         (pk_order (autoIncrement!), is_closed_int, fk_payment, fk_customer) 
         """
-        current_order = (0, 0, 3)
+        current_order = (0, None, 3)
         self.current_order_db.write_one_order(current_order)
-        results_expected = (4, 0, 'null', 3)
+        results_expected = (4, 0, None, 3)
         results_actual = self.current_order_db.get_all_orders()
         self.assertIn(results_expected, results_actual)
 
@@ -180,7 +180,7 @@ class TestShoppingCart(unittest.TestCase):
         Method to test whether the LineItem DB Interactor can write a new line item
         """
         current_product = (1, "coconut oil shampoo", 7.99, "silky smoothe hair treatment shampoo")
-        current_order = (1, 0, 1, 1)
+        current_order = (1, 0, 0, 1)
         self.current_line_item_db.write_one_line_item(current_order, current_product)
 
 
