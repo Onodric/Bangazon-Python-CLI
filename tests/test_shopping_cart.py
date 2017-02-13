@@ -109,7 +109,7 @@ class TestShoppingCart(unittest.TestCase):
         total = self.current_cart.get_cart_total()
         self.assertEqual(total, 15)
 
-    def test_ShoppingCart_should_accept_payment_method(self):
+    def test_ShoppingCart_should_accept_payment_method(self, payment):
         """
         Method to test whether the shopping cart can be closed
         """
@@ -121,13 +121,23 @@ class TestShoppingCart(unittest.TestCase):
     def test_OrderDB_should_return_all_orders(self):
         """
         Method to test whether the Order DB Interactor can return all orders
+
+        format of tuple:
+        (pk_order, is_closed_int, fk_payment, fk_customer) 
         """
+        result_expected = [(1, 0, 1, 1), (2, 0, 2, 2), (3, 1, 3, 3)]
+        results_actual = orderDB.get_all_orders()
+        self.assertEqual(result_expected, results_actual)
 
 
     def test_OrderDB_should_write_new_order(self):
         """
         Method to test whether the Order DB Interactor can create a new order
+        
+        format of tuple:
+        (pk_order, is_closed_int, fk_payment, fk_customer) 
         """
+        self.cur
 
 
     def test_OrderDB_should_update_order_status(self):
@@ -145,8 +155,10 @@ class TestShoppingCart(unittest.TestCase):
     def test_LineItemDB_should_return_all_line_items(self):
         """
         Method to test whether the LineItem DB Interactor can return all line items
-        """
 
+        format of tuple:
+        (pk_line_item, fk_order, fk_product) 
+        """
 
 if __name__ == '__main__':
     unittest.main()
