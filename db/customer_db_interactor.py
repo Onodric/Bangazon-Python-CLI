@@ -11,6 +11,7 @@ class Customer_db():
 		get_all_customers
 		update_active_true
 		update_active_false
+		get_active
 	"""
 
 	def save_new_customer(self, Customer):
@@ -84,6 +85,19 @@ class Customer_db():
 				cursor.execute('UPDATE Customer SET active = 0 WHERE active = 1')
 			except:
 				pass
+
+	def get_active():
+		"""
+		when called will query the Customer table and will return a customer where active = 1 (true)
+		"""
+		with sqlite3.connect(configuration.database_path) as thingies:
+			cursor = thingies.cursor()
+			try:
+				cursor.execute('SELECT * FROM Customer WHERE active = 1')
+				customer = cursor.fetchall()
+			except:
+				pass
+			return customer
 
 
 
