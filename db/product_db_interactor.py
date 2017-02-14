@@ -56,7 +56,7 @@ class ProductData():
 
     def get_all_products(self):
         """
-        This is a methid to get all produdct data
+        This is a method to get all produdct data
         """
 
         with sqlite3.connect(configuration.database_path) as proc:

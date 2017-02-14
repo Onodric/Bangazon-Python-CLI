@@ -40,9 +40,9 @@ class ProductPopularity():
     #             if order[0] == item[1]:
     #                 for product in self.product_data:
     #                     if product[0] == item[2]:
-    #                         revenue[product[1]] =list()
-    #                         revenue[product[1]].append(product[2])
-    #                         sum(revenue[product[1]])
+    #                         revenue[product[2]] =list()
+    #                         revenue[product[2]].append(product[2])
+    #                         sum(revenue[product[2]])
 
     #     return revenue
 
@@ -59,9 +59,9 @@ class ProductPopularity():
     #                     for customer in self.customer_data:
     #                         if product[0] == item[2]:
     #                             if order[3] == customer[0]:
-    #                                 customers[product[1]] =list()
-    #                                 customers[product[1]].append(order[3])
-    #                                 customers[product[1]] = len(customers[product[1]])
+    #                                 customers[product[2] =list()
+    #                                 customers[product[2]].append(order[3])
+    #                                 customers[product[2]] = len(customers[product[2]])
     #     return customers
 
 
@@ -75,9 +75,9 @@ class ProductPopularity():
     #         if order[0] == line_item[1]:
     #             for product in self.product_data:
     #                 if product[0] == item[2]:
-    #                     orders[product[1]] =list()
-    #                     orders[product[1]].append(order[0])
-    #                     orders[product[1]] = len(orders[product[1]])
+    #                     orders[product[2]] =list()
+    #                     orders[product[2]].append(order[0])
+    #                     orders[product[2]] = len(orders[product[2]])
     #     return orders
 
 
