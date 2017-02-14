@@ -102,14 +102,23 @@ class ProductPopularity():
         This for loops will retrieve the total order number, total customer number, total revenue of a specific product 
         and print out the results in the command line
         """
+        sum_revenue = []
+        sum_customers = []
+        sum_orders = []
 
-        # for key, value in total_orders.items():
-        #     for prod, num in total_customers.items():
-        #         if prod == key:
-        #             for name, revenue in total_revenue.items():
-        #                 if name == key:
-        #                     print("{:<18}{:<11}{:<11}{:<15}".format(key, value, num, revenue))
+        for key, value in total_orders.items():
+            for prod, num in total_customers.items():
+                if prod == key:
+                    for name, revenue in total_revenue.items():
+                        if name == key:
+                            sum_orders.append(value)
+                            sum_customers.append(num)
+                            sum_revenue.append(revenue)
+                            print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
+                            print ( "{:*^55}".format("*"))
 
+                            print("{:<18}{:<11}{:<11}{:<15}".format(key, value, num, revenue))
+                            print("{:<18}{:<11}{:<11}{:<15}".format("Totals", sum(sum_orders), sum(sum_customers), sum(sum_revenue)))
 
 
 
