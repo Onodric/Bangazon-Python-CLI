@@ -2,7 +2,6 @@ from cli.active_customer_cli import CustomerSelection
 from cli.product_cli import ProductPopularity
 from cli.customer_creation_cli import CustomerCreation
 
-
 class MainMenu():
     """Class to contain the Bangazon CLI user input loop. After running the
      file, the MainMenu.run() method is called. 
@@ -35,9 +34,8 @@ class MainMenu():
 >""")
 
             if selected_option == "1":
-                customer_creation = CustomerCreation()
-                customer_creation.run()
-                print("Create a customer account")
+                create_customer = CustomerCreation()
+                create_customer.run()
             elif selected_option == "2":
                 choose_customer = CustomerSelection()
                 choose_customer.run()
