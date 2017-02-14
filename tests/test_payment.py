@@ -46,7 +46,20 @@ class TestPayment(unittest.TestCase):
         """
         saved_payment = PaymentDatabaseInteractor()
         saved_payment.save_payment(self.juan_payment)
-        self.assertIn((4, "12345678", "Visa", 1), saved_payment.get_all_payments())
+        data = saved_payment.get_all_payments()
+
+        self.assertIsInstance(data, list)
+        test_index = len(data)
+        payment_present = False
+
+        for payment in saved_payment.get_all_payments():
+            if payment[0] == test_index:
+                if payment[1] == "12345678":
+                    if payment[2] == "Visa":
+                        if payment[3] == 1:
+                            payment_present = True
+
+        self.assertTrue(payment_present)
 
     def test_all_payments_can_be_retreived(self):
         """
@@ -56,12 +69,18 @@ class TestPayment(unittest.TestCase):
         get_payments = PaymentDatabaseInteractor()
         get_payments.save_payment(self.juan_payment)
         get_payments.save_payment(self.taylor_payment)
+        data = get_payments.get_all_payments()
 
-        all_payments = get_payments.get_all_payments()
+        data_index_1 = len(data)-1
+        get_payments.save_payment(self.juan_payment)
 
-        self.assertIn((30, "Mastercard", "87654321", 1), all_payments)
+        data_index_2 = len(data)
+        get_payments.save_payment(self.taylor_payment)
 
+        all_data = get_payments.get_all_payments()
 
+        self.assertIn((data_index_1, "12345678", "Visa", 1), all_data)
+        self.assertIn((data_index_2, "87654321", "Mastercard", 1), all_data)
 
 if __name__ == "__main__":
     unittest.main()
