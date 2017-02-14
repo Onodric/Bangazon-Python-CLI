@@ -113,8 +113,10 @@ class ProductPopularity():
                             sum_orders.append(value)
                             sum_customers.append(num)
                             sum_revenue.append(revenue)
+                        
 
-                            print("{:<18}{:<11}{:<11}{:<15}".format(key, str(value), str(num), str(revenue)))
+
+                            print("{:<18}{:<11}{:<11}{:<15}".format(key[0:14], str(value), str(num), str(revenue)))
         print ( "{:*^55}".format("*"))
         print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", sum(sum_orders), sum(sum_customers), sum(sum_revenue)))
 
