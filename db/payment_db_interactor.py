@@ -1,5 +1,7 @@
 import sqlite3
-
+import sys
+sys.path.append("../")
+import configuration
 
 class PaymentDatabaseInteractor():
     """
@@ -12,7 +14,7 @@ class PaymentDatabaseInteractor():
         This is a method to save payment data
         Author: Dani Adkins
         """
-        with sqlite3.connect('../db/bangazon.db') as pago:
+        with sqlite3.connect(configuration.database_path) as pago:
             cursor = pago.cursor()
             try:
                 cursor.execute("""
@@ -30,7 +32,7 @@ class PaymentDatabaseInteractor():
         This is a method to return all payment data
         Author: Dani Adkins
         """
-        with sqlite3.connect('../db/bangazon.db') as pago:
+        with sqlite3.connect(configuration.database_path) as pago:
             cursor = pago.cursor()
 
         try:
