@@ -3,6 +3,7 @@ from cli.product_cli import ProductPopularity
 from cli.customer_creation_cli import CustomerCreation
 from cli.payment_cli import PaymentSelection
 
+
 class MainMenu():
     """Class to contain the Bangazon CLI user input loop. After running the
      file, the MainMenu.run() method is called.
@@ -17,8 +18,17 @@ class MainMenu():
           Bangazon CLI. Users also have the option of exiting the program
            altogether.
         """
+
+        # Set all customers as inactive to start the program
+        customer_db = Customer_db()
+        customer_db.update_active_false()
+
+        # while running == True, MainMenu loop will run repeatedly.
+        # To leave Bangazon, running is set to False
         running = True
 
+        # starts the main loop, which handles all CLI functionality and acts
+        # as the control hub for the other modules
         while running:
             print("""\n\n\n\n\n\n""")
             selected_option = input("""
@@ -52,6 +62,7 @@ class MainMenu():
                 product_pop.run()
             elif selected_option == "7":
                 print("goodbye")
+                customer_db.update_active_false()
                 running = False
 
 
