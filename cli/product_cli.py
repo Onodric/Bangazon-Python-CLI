@@ -94,10 +94,7 @@ class ProductPopularity():
         total_customers = self.get_total_num_of_customers()
         total_orders = self.get_total_num_of_orders()
 
-        # print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
-        # print("{:<18}{:<11}{:<11}{:<15}".format("Baby Powder", 3, 2, "$96.00"))
-        # print ( "{:*^55}".format("*"))
-
+        
         """
         This for loops will retrieve the total order number, total customer number, total revenue of a specific product 
         and print out the results in the command line
