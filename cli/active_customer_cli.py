@@ -43,4 +43,4 @@ class CustomerSelection():
                     customer_db.update_active_true(selected_customer_id)
 
         except Exception as e:
-            raise e
+            print("Invalid customer selection")
