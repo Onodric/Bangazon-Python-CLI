@@ -17,6 +17,9 @@ class CustomerSelection():
         set the selected customer as active.
         """
 
+        # create an instance of the customer database interactor
+        customer_db = Customer_db()
+
         # retrieve a list of customers
         all_customers = Customer_db.get_all_customers()
         
@@ -36,8 +39,8 @@ class CustomerSelection():
                 if customer_index < len(all_customers):
                     selected_customer = all_customers[customer_index]
                     selected_customer_id = selected_customer[0]
-                    Customer_db.update_active_false()
-                    Customer_db.update_active_true(selected_customer_id)
+                    customer_db.update_active_false()
+                    customer_db.update_active_true(selected_customer_id)
 
         except Exception as e:
             raise e
