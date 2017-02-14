@@ -3,6 +3,10 @@ from cli.product_cli import ProductPopularity
 from cli.customer_creation_cli import CustomerCreation
 from db.customer_db_interactor import Customer_db
 
+class BColor:
+    stars = '\033[91m'
+    ENDC = '\033[0m'
+
 class MainMenu():
     """Class to contain the Bangazon CLI user input loop. After running the
      file, the MainMenu.run() method is called.
@@ -30,10 +34,12 @@ class MainMenu():
         # as the control hub for the other modules
         while running:
             print("""\n\n\n\n\n\n""")
+            print(BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
+            print(BColor.stars+ "**" + BColor.ENDC + "Welcome to Bangazon! Command Line Ordering System" + BColor.stars + "**" + BColor.ENDC)
+            print(BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
+
             selected_option = input("""
-*********************************************************
-**  Welcome to Bangazon! Command Line Ordering System  **
-*********************************************************
+
 1. Create a customer account
 2. Choose active customer
 3. Create a payment option
@@ -42,6 +48,7 @@ class MainMenu():
 6. See product popularity
 7. Leave Bangazon!
 >""")
+            
 
             if selected_option == "1":
                 create_customer = CustomerCreation()
