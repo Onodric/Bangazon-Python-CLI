@@ -60,6 +60,7 @@ class MainMenu():
                 product_pop.run()
             elif selected_option == "7":
                 print("goodbye")
+                customer_db.update_active_false()
                 running = False
 
 
