@@ -4,4 +4,5 @@ Bangazon.db
 *.db
 *.db-journal
 filepath.py
+configuration.py
 
