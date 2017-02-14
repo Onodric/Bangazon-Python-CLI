@@ -28,7 +28,7 @@ class PaymentSelection():
             account_number = input(">")
             print("You entered", account_number)
 
-            pay = Payment(payment_type, account_number, customer_id[0])
+            pay = Payment(payment_type, account_number, customer_id)
             PaymentDatabaseInteractor().save_payment(pay)
         except:
             print("Please choose an active customer")
