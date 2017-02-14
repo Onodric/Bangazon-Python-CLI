@@ -50,7 +50,7 @@ class ShoppingCartCLI():
         self.all_products = self.products.get_all_products()
         self.all_line_items = self.line_item.get_all_line_items()
 
-        self.current_customer = self.customer.get_active()
+        self.current_customer = Customer_db.get_active()
         self.active_order = get_active_order()
         self.existing_line_items = get_line_items()
         self.shopping_cart = ShoppingCart(customer=self.current_customer, line_items=self.existing_line_items, order=self.active_order)
