@@ -153,9 +153,12 @@ class TestShoppingCart(unittest.TestCase):
         """
         current_order = (0, None, 3)
         self.current_order_db.write_one_order(current_order)
-        results_expected = (4, 0, None, 3)
+        results_expected = (0, None, 3)
         results_actual = self.current_order_db.get_all_orders()
-        self.assertIn(results_expected, results_actual)
+        results_without_PK = list()
+        for item in results_actual:
+            results_without_PK.append((item[1], item[2], item[3], ))
+        self.assertIn(results_expected, results_without_PK)
 
 
     def test_OrderDB_should_update_order_status(self):
