@@ -8,6 +8,7 @@ from db.product_db_interactor import ProductData
 
 
 
+
 class TestProduct(unittest.TestCase):
     """
     Tests for class Product in model file
