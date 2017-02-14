@@ -49,6 +49,3 @@ class LineItemDB():
                 INSERT INTO LineItem VALUES (null, {}, {})
                 """
                 .format(order[0], product[0]))
-            # except sqlite3.OperationalError:
-            #     pass
-            #     # return "There was an Error writing to the Line Items Table"

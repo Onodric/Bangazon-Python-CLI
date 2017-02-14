@@ -59,14 +59,9 @@ class OrderDB():
         with sqlite3.connect(configuration.database_path) as db:
             cursor = db.cursor()
 
-            # try:
             cursor.execute("""
                 UPDATE Orders SET is_closed=1,
                     payment_id={},
                     customer_id={}
                 WHERE orders_id={}"""
                 .format(payment_method[0], input_order[3], input_order[0]))
-            # except sqlite3.OperationalError:
-                # pass
-                # return "There was an error writing to the Orders table"
-
