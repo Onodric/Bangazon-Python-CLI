@@ -1,7 +1,8 @@
 import sys
 sys.path.append("../")
 # from db.order_db_interactor import *
-# from db.customer_db_interactor import *
+# from db.line_item_db_interactor import *
+from db.customer_db_interactor import *
 from db.product_db_interactor import *
 
 class ProductPopularity():
@@ -17,17 +18,17 @@ class ProductPopularity():
 
     # def __init__(self):
 
-    #     """
-    #     initialized get_all_orders() method from Orders from the order db file
-    #     initialized get_all_products() method from Product from the product db file
-    #     initialized get_all_line_items()method from Orders from the order db file
-    #     initilaized get_all_customers()method from Orders from the customer db file
-    #     """
+    """
+    initialized get_all_orders() method from Orders from the order db file
+    initialized get_all_products() method from Product from the product db file
+    initialized get_all_line_items()method from Orders from the order db file
+    initilaized get_all_customers()method from Orders from the customer db file
+    """
 
-    #     self.order_data = Orders.get_all_orders()
-    #     self.product_data = Product.get_all_products()
-    #     self.line_items = Line_items.get_all_line_items()
-    #     self.customer_data = Customer.get_all_customers()
+        # self.order_data = OrderDB.get_all_orders()
+        # self.product_data = ProductData.get_all_products(self)
+        # self.line_items = LineItemDB.get_all_line_items()
+        # self.customer_data = Customer_db.get_all_customers()
 
 
     # def get_total_revenue(self):
@@ -59,9 +60,10 @@ class ProductPopularity():
     #                     for customer in self.customer_data:
     #                         if product[0] == item[2]:
     #                             if order[3] == customer[0]:
-    #                                 customers[product[2] =list()
+    #                                 customers[product[2]] =list()
     #                                 customers[product[2]].append(order[3])
     #                                 customers[product[2]] = len(customers[product[2]])
+
     #     return customers
 
 
@@ -93,6 +95,7 @@ class ProductPopularity():
         # total_orders = self.get_total_num_of_orders()
 
         print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
+        print("{:<18}{:<11}{:<11}{:<15}".format("Baby Powder", 3, 2, "$96.00"))
         print ( "{:*^55}".format("*"))
 
         """
@@ -115,7 +118,6 @@ class ProductPopularity():
         # print("{:<18}{:<11}{:<11}{:<15}".format(p_total_orders, total_customers[key], total_revenue[key] ))
 
         
-        # print("{:<18}{:<11}{:<11}{:<15}".format("Baby Powder", 3, 2, "$96.00"))
 
 
 
