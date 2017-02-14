@@ -88,6 +88,8 @@ class TestCustomer(unittest.TestCase):
 		"""
 		testing to see if you can return a customer with active set to true
 		"""
+		Customer_db().update_active_false()
+		Customer_db().update_active_true(2)
 		customer = Customer_db.get_active()
 		active_status = customer[0][7]
 		self.assertEqual(1, active_status)
