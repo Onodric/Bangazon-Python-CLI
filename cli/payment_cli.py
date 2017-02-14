@@ -14,23 +14,21 @@ class PaymentSelection():
         """
         PaymentSelection.run() method prompts the user to enter their payment type and account number information. The payment information is then saved to the database.
         """
+        print("""\n\n\n\n\n\n""")
 
         try:
             customer_on_payment = Customer_db.get_active()[0]
             customer_id = customer_on_payment[0]
 
-            payment_type = input("Enter payment type (Visa, Mastercard, etc.):")
+            print("Enter payment type (Visa, Mastercard, etc.):")
+            payment_type = input(">")
             print("You entered", payment_type)
 
-            account_number = input("Enter account number:")
+            print("Enter account number:")
+            account_number = input(">")
             print("You entered", account_number)
 
             pay = Payment(payment_type, account_number, customer_id[0])
             PaymentDatabaseInteractor().save_payment(pay)
         except:
             print("Please choose an active customer")
-
-
-# if __name__ == '__main__':
-#     payment_create = PaymentSelection()
-#     payment_create.run()

@@ -2,7 +2,7 @@ from cli.active_customer_cli import CustomerSelection
 from cli.product_cli import ProductPopularity
 from cli.customer_creation_cli import CustomerCreation
 from cli.payment_cli import PaymentSelection
-
+from db.customer_db_interactor import Customer_db
 
 class MainMenu():
     """Class to contain the Bangazon CLI user input loop. After running the
