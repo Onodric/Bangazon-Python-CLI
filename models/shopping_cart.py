@@ -30,7 +30,7 @@ class ShoppingCart():
     """
 
     def __init__(self, customer=tuple(), line_items=list(),
-            payment_method=tuple(), current_order=tuple()):
+            payment_method=None, current_order=tuple()):
         """
         Method to initialize the class with empty default values
 
@@ -48,6 +48,8 @@ class ShoppingCart():
         self.__payment_method = payment_method
         self.__is_closed = 0
         self.__current_order = current_order
+        self.__line_item_db = LineItemDB()
+        self.__order_db = OrderDB()
 
 
     def get_customer(self):
@@ -101,6 +103,7 @@ class ShoppingCart():
             product: a tuple containing one product's data
         """
         self.__line_items.append(product)
+        self.__line_item_db.write_one_line_item(self.__current_order, product)
 
 
     def get_cart_total(self):
@@ -128,3 +131,4 @@ class ShoppingCart():
 
         self.__payment_method = payment_method
         self.__is_closed = 1
+        self.__order_db.close_one_order(self.__current_order, payment_method)
