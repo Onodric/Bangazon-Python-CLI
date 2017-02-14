@@ -115,7 +115,6 @@ class ProductPopularity():
 
         input("->Press any key to return to main menu ")
        
-        # print("{:<18}{:<11}{:<11}{:<15}".format(p_total_orders, total_customers[key], total_revenue[key] ))
 
         
 
