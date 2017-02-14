@@ -43,7 +43,6 @@ class TestShoppingCart(unittest.TestCase):
         self.current_customer = (1, "Me", "500 Interstate Blvd", "Nashville",
             "TN", "11111", "(615) 123-4567", 1)
         # Create an instance of a product that can be used in all tests
-        # Product tuple will need alteration
         self.product1 = (1, "Widget", 5, "Widget")
         self.product2 = (2, "FooBar", 10, "foobar widget")
         self.payment_method = (1, "Visa", "1234567812345678", 1)
