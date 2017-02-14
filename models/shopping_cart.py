@@ -10,6 +10,13 @@ class ShoppingCart():
     Initially the cart is open (or "is_closed" is False), and will be
         closed (or "is_closed" is True) upon customer payment processing.
 
+    format of payment_method:
+        (pk_order (autoIncrement!), name (string), account_number (string), fk_customer)
+
+    format of product:
+        (pk_order (autoIncrement!), name (string), price (number), description (string))
+
+
     Author: Ben Marks, Ludicrous Ducks
 
     Methods:
@@ -45,7 +52,7 @@ class ShoppingCart():
 
     def get_customer(self):
         """
-        Method to return the customer as an Primary Key integer
+        Method to return the customer as a tuple
 
         Arguments: NONE
         """
@@ -63,7 +70,10 @@ class ShoppingCart():
 
     def get_payment_method(self):
         """
-        Method to return payment method as a Primary Key integer
+        Method to return payment method as a tuple
+
+        format of payment_method:
+            (pk_order (autoIncrement!), name (string), account_number (string), fk_customer)
 
         Arguments: NONE
         """
@@ -83,6 +93,9 @@ class ShoppingCart():
     def add_product(self, product):
         """
         Method to add one line item to the order
+
+        format of productl:
+            (pk_order (autoIncrement!), name (string), price (number), description (string))
 
         Arguments:
             product: a tuple containing one product's data
@@ -114,4 +127,4 @@ class ShoppingCart():
         """
 
         self.__payment_method = payment_method
-        self.__is_closed = True
+        self.__is_closed = 1

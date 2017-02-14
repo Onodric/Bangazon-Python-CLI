@@ -85,7 +85,8 @@ class TestShoppingCart(unittest.TestCase):
         Method to test whether the ShoppingCart object can return the
             is_closed flag
         """
-        self.assertEqual(self.current_cart.get_is_closed(self.current_order), 0)
+        new_cart = ShoppingCart()
+        self.assertEqual(new_cart.get_is_closed(), 0)
 
 
     def test_ShoppingCart_should_add_product(self):
@@ -112,8 +113,13 @@ class TestShoppingCart(unittest.TestCase):
         """
         Method to test whether the shopping cart can return the total
         """
-        total = self.current_cart.get_cart_total()
-        self.assertEqual(total, 15)
+        expected_total = self.current_cart.get_cart_total()
+        all_line_items = self.current_cart.get_line_items()
+        actual_total = 0
+        for item in all_line_items:
+            actual_total += item[2]
+
+        self.assertEqual(expected_total, actual_total)
 
 
     def test_ShoppingCart_should_accept_payment_method(self):
@@ -122,7 +128,7 @@ class TestShoppingCart(unittest.TestCase):
         """
         self.current_cart.accept_payment(self.payment_method)
         self.assertEqual(self.current_cart.get_payment_method(), (1, "Visa", "1234567812345678", 1))
-        self.assertEqual(self.current_cart.order_is_closed(), 1)
+        self.assertEqual(self.current_cart.get_is_closed(), 1)
 
 
     def test_OrderDB_should_return_all_orders(self):
@@ -134,7 +140,9 @@ class TestShoppingCart(unittest.TestCase):
         """
         results_expected = [(1, 0, None, 1), (2, 0, None, 2), (3, 1, 3, 3)]
         results_actual = self.current_order_db.get_all_orders()
-        self.assertEqual(results_expected, results_actual)
+        self.assertIn(results_expected[0], results_actual)
+        self.assertIn(results_expected[1], results_actual)
+        self.assertIn(results_expected[2], results_actual)
 
 
     def test_OrderDB_should_write_new_order(self):
@@ -155,12 +163,15 @@ class TestShoppingCart(unittest.TestCase):
         """
         Method to test whether the Order DB Interactor can update an order
         """
-        current_order = (4, 0, 0, 3)
+        current_order = (0, 0, 3)
+        self.current_order_db.write_one_order(current_order)
         current_payment = (2, "0987654321", "Wells Fargo", 2)
-        self.current_order_db.close_one_order(current_order, current_payment)
-        results_expected = (4, 1, 2, 3)
         results_actual = self.current_order_db.get_all_orders()
-        self.assertEqual(results_expected, results_actual[3])
+        current_order = results_actual[-1]
+        self.current_order_db.close_one_order(current_order, current_payment)
+        results_expected = (results_actual[-1][0], 1, 2, 3)
+        results_actual = self.current_order_db.get_all_orders()
+        self.assertIn(results_expected, results_actual)
 
 
     def test_LineItemDB_should_return_all_line_items(self):
@@ -172,7 +183,9 @@ class TestShoppingCart(unittest.TestCase):
         """
         results_expected = [(1, 1, 1), (2, 2, 2), (3, 3, 3)]
         results_actual = self.current_line_item_db.get_all_line_items()
-        self.assertEqual(results_expected, results_actual)
+        self.assertIn(results_expected[0], results_actual)
+        self.assertIn(results_expected[1], results_actual)
+        self.assertIn(results_expected[2], results_actual)
 
 
     def test_LineItemDB_should_write_new_line_item(self):
