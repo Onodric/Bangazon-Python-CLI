@@ -4,7 +4,7 @@ from cli.customer_creation_cli import CustomerCreation
 
 class MainMenu():
     """Class to contain the Bangazon CLI user input loop. After running the
-     file, the MainMenu.run() method is called. 
+     file, the MainMenu.run() method is called.
 
     Author: Sam Phillips
     """
@@ -51,7 +51,7 @@ class MainMenu():
             elif selected_option == "7":
                 print("goodbye")
                 running = False
-    
+
 
 bangazon_interface = MainMenu()
 bangazon_interface.run()
