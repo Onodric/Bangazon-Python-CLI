@@ -1,5 +1,7 @@
 import sqlite3
-
+import sys
+sys.path.append("../")
+import configuration
 
 
 class ProductData():
@@ -11,7 +13,7 @@ class ProductData():
         """
         This is a method to save product data
         """
-        with sqlite3.connect('bangazon.db') as proc:
+        with sqlite3.connect(configuration.database_path) as proc:
             cursor = proc.cursor()
 
             try: 
@@ -21,7 +23,7 @@ class ProductData():
                 cursor.execute("""
                 CREATE TABLE `Product`
                 (
-                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    product_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     price NUMBER NOT NULL,
                     description TEXT NOT NULL
@@ -41,11 +43,11 @@ class ProductData():
         This is a method to get product data
         """
 
-        with sqlite3.connect('bangazon.db') as proc:
+        with sqlite3.connect(configuration.database_path) as proc:
             cursor = proc.cursor()
 
             cursor.execute("""SELECT * FROM Product p
-                WHERE p.id = {}
+                WHERE p.product_id = {}
                 """.format(product_id))
             products = cursor.fetchall()
 
@@ -53,15 +55,18 @@ class ProductData():
         return products
 
     def get_all_products(self):
+        """
+        This is a method to get all produdct data
+        """
 
-        with sqlite3.connect('bangazon.db') as proc:
+        with sqlite3.connect(configuration.database_path) as proc:
             cursor = proc.cursor()
 
-            cursor.execute(""" SELECT id, price, name FROM Product p
+            cursor.execute(""" SELECT product_id, price, name FROM Product p
                """)
             results = cursor.fetchall()
 
-            return results
+        return results
             
 
 

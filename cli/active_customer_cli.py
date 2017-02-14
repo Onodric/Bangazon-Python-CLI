@@ -1,6 +1,6 @@
 import sys
 sys.path.append("../")
-# from db.customer_data_man import CustomerDataMan
+from db.customer_db_interactor import Customer_db
 
 class CustomerSelection():
 	"""Class to contain the Bangazon Customer Selection view. After running
@@ -17,12 +17,9 @@ class CustomerSelection():
 		set the selected customer as active.
 		"""
 
-		# data_man = CustomerDataMan()
-		# all_customers = data_man.get_all_customers()
-
-		all_customers = [(0, "Jon Con", "address", "city", "state", 37174, 
-			"(615) 867-5309", 0), (1, "Sam", "sam's address", "sam's city", 
-			"sam's state", 37174, "(615) 555-5555", 0),]
+		
+		all_customers = Customer_db.get_all_customers()
+		
 		print("""\n\n\n\n\n\n""")
 		print("Which customer will be active?")
 		for index, customer in enumerate(all_customers):
@@ -32,11 +29,6 @@ class CustomerSelection():
 		selected_customer = all_customers[selected_customer_index]
 
 		if selected_customer_index >= 0:
-			# data_man.deactivate_customers()
-			# data_man.activate_customer(selected_customer_id)
+			
 			print("customer id = {}".format(selected_customer[0]))
 
-if __name__ == '__main__':
-	choose_customer = CustomerSelection()
-	choose_customer.run()
-	
