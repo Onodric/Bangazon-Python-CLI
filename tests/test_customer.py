@@ -15,6 +15,7 @@ class TestCustomer(unittest.TestCase):
 		test_customer_can_be_saved_and_returned
 		test_can_update_true
 		test_can_update_false
+		test_can_return_active
 	"""
 	@classmethod
 	def setUpClass(self):
@@ -82,6 +83,16 @@ class TestCustomer(unittest.TestCase):
 		new_customers_again = Customer_db.get_all_customers()
 		for customer in new_customers_again:
 			self.assertEqual(0, customer[7])
+
+	def test_can_return_active(self):
+		"""
+		testing to see if you can return a customer with active set to true
+		"""
+		Customer_db().update_active_false()
+		Customer_db().update_active_true(2)
+		customer = Customer_db.get_active()
+		active_status = customer[0][7]
+		self.assertEqual(1, active_status)
 
 
 
