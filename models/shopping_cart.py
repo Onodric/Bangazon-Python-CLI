@@ -1,21 +1,36 @@
+import sys
+sys.path.append("../")
+from db.order_db_interactor import OrderDB
+from db.line_item_db_interactor import LineItemDB
+
 class ShoppingCart():
     """
     Class defining a customer's shopping cart.
-    
+
     Initially the cart is open (or "is_closed" is False), and will be
         closed (or "is_closed" is True) upon customer payment processing.
 
+    format of payment_method:
+        (pk_order (autoIncrement!), name (string), account_number (string), fk_customer)
+
+    format of product:
+        (pk_order (autoIncrement!), name (string), price (number), description (string))
+
+
+    Author: Ben Marks, Ludicrous Ducks
+
     Methods:
-        get_all_products
+        get_customer
+        get_line_items
+        get_payment_method
+        get_is_closed
         add_product
         get_cart_total
         accept_payment
-        get_payment_method
-        order_is_closed
     """
 
     def __init__(self, customer=tuple(), line_items=list(),
-            payment_method=tuple()):
+            payment_method=tuple(), current_order=tuple()):
         """
         Method to initialize the class with empty default values
 
@@ -25,16 +40,26 @@ class ShoppingCart():
                 product data
             payment_method: A tuple containing the payment
                 method data
-            is_closed: A boolean indicating that an order has
-                been paid for and has been processed
+            is_closed: An integer indicating that an order has
+                been paid for (1) or is still open (0)
         """
         self.__customer = customer
         self.__line_items = line_items
         self.__payment_method = payment_method
-        self.__is_closed = False
+        self.__is_closed = 0
+        self.__current_order = current_order
 
 
-    def get_all_products(self):
+    def get_customer(self):
+        """
+        Method to return the customer as a tuple
+
+        Arguments: NONE
+        """
+        return self.__customer
+
+
+    def get_line_items(self):
         """
         Method to return line items as a list of tuples
 
@@ -43,9 +68,34 @@ class ShoppingCart():
         return self.__line_items
 
 
+    def get_payment_method(self):
+        """
+        Method to return payment method as a tuple
+
+        format of payment_method:
+            (pk_order (autoIncrement!), name (string), account_number (string), fk_customer)
+
+        Arguments: NONE
+        """
+        return self.__payment_method
+
+
+    def get_is_closed(self):
+        """
+        Method to return order closed status as an integer:
+            open (0) or closed (1)
+
+        Arguments: NONE
+        """
+        return self.__is_closed
+
+
     def add_product(self, product):
         """
         Method to add one line item to the order
+
+        format of productl:
+            (pk_order (autoIncrement!), name (string), price (number), description (string))
 
         Arguments:
             product: a tuple containing one product's data
@@ -62,7 +112,7 @@ class ShoppingCart():
 
         total_price = 0
 
-        for items in self.__line_items:
+        for item in self.__line_items:
             total_price += item[2]
 
         return total_price
@@ -77,23 +127,4 @@ class ShoppingCart():
         """
 
         self.__payment_method = payment_method
-        self.__is_closed = True
-
-
-    def get_payment_method(self):
-        """
-        Method to return the cart's payment method as a tuple
-        
-        Arguments: NONE
-        """
-        return self.__payment_method
-
-
-    def order_is_closed(self):
-        """
-        Method to return the cart's closed status as a boolean
-        
-        Arguments: NONE
-        """
-
-        return self.__is_closed
+        self.__is_closed = 1

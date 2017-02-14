@@ -70,19 +70,19 @@ INSERT INTO Product VALUES (null, 'Electric Guitar', 3.50, 'Fun way to make musi
 CREATE TABLE `Orders` (
     orders_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     is_closed INTEGER NOT NULL,
-    payment_id INTEGER NOT NULL,
+    payment_id INTEGER,
     customer_id INTEGER NOT NULL,
     FOREIGN KEY(`payment_id`) REFERENCES `Payment`(`payment_id`),
     FOREIGN KEY(`customer_id`) REFERENCES `Customer`(`customer_id`)
 );
 
 INSERT INTO Orders
-	SELECT null, 0, p.payment_id, c.customer_id
+	SELECT null, 0, null, c.customer_id
 	FROM Payment p, Customer c
 	WHERE p.payment_type = "VISA" AND c.name = "Bob Ross";
 
 INSERT INTO Orders
-	SELECT null, 0, p.payment_id, c.customer_id
+	SELECT null, 0, null, c.customer_id
 	FROM Payment p, Customer c
 	WHERE p.payment_type = "Wells Fargo" AND c.name = "Donald Trump";
 
@@ -115,7 +115,3 @@ INSERT INTO LineItem
 	SELECT null, o.orders_id, p.product_id
 	FROM Product p, Orders o, Customer c
 	WHERE p.name = "Electric Guitar" AND c.name="Bugs Bunny" AND o.customer_id = c.customer_id;
-
-
-
-
