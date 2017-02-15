@@ -120,6 +120,12 @@ class ShoppingCartCLI():
             if item[1] == self.active_order[0]:
                 self.existing_line_items.append(item)
         
+        self.customers_payments = []
+        all_payments = self.payment.get_all_payments()
+        for item in all_payments:
+            if item[-1] == self.current_customer[0][0]:
+                self.customers_payments.append(item)
+
         if self.existing_line_items == []:
             input("Please add some products to your order first. Press any key to return to main menu.")
         else:
@@ -139,11 +145,13 @@ class ShoppingCartCLI():
                     for item in self.customers_payments:
                         print("{}. {}".format(item[0], item[2]))
                     pay_choice = input(">")
+                    paid = False
                     for item in self.customers_payments:
                         if pay_choice == str(item[0]):
                             self.shopping_cart.accept_payment(item, self.active_order)
+                            paid = True
                             input("Your order is complete! Press any key to return to main menu.")
-                        else:
-                            input("Not a valid payment choice, payment cancelled.")
+                    if paid == False:
+                        input("Not a valid payment choice, payment cancelled.")
             else:
                 return
