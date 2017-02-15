@@ -69,7 +69,6 @@ class ShoppingCartCLI():
 
         # get all attached line items of an order
         self.existing_line_items = []
-        print(self.all_line_items)
         if len(self.all_line_items) > 0:
             for item in self.all_line_items:
                 if item[1] == self.active_order[0]:
