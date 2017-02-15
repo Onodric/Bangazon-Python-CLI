@@ -5,6 +5,10 @@ from db.line_item_db_interactor import LineItemDB
 from db.customer_db_interactor import Customer_db
 from db.product_db_interactor import ProductData
 
+class BColor:
+    stars = '\033[91m'
+    ENDC = '\033[0m'
+
 class ProductPopularity():
     """
         This class is to build the chart for product popularity.
@@ -30,6 +34,11 @@ class ProductPopularity():
         ProductPopularity.run() method prompts to get total revenue, number of orders, number of customers on a product
         
         """
+        self.order_data = OrderDB.get_all_orders(self)
+        self.product_data = ProductData.get_all_products(self)
+        self.line_items = LineItemDB.get_all_line_items(self)
+        self.customer_data = Customer_db.get_all_customers()
+
 
         revenue = dict()
         orders = dict()
@@ -44,8 +53,14 @@ class ProductPopularity():
             product_total_revenue = 0
             self.line_items= self.line_item_db.get_all_line_items()
             for item in self.line_items:
-                print(item)
-                if item[2] == product[0]:
+                # if the line_item belongs to the order
+                if order[0] == item[1]:
+                    for product in self.product_data:
+                        if product[0] == item[2]:
+                            revenue[product[2]] =list()
+                            revenue[product[2]].append(product[1])
+                            revenue[product[2]] = int(sum(revenue[product[2]]))
+                            
 
                     # add the product's price to a list holding each sale of that product
                     revenue[product[2]].append(product[1])
@@ -133,6 +148,7 @@ class ProductPopularity():
         # sum_revenue = []
         # sum_customers = []
         # sum_orders = []
+
 
 
         # total_bangazon_revenue = 0
@@ -324,7 +340,6 @@ class ProductPopularity():
 
     #     print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", sum(sum_orders), sum(sum_customers), "$" + total_bangazon_revenue))
     #     input("->Press any key to return to main menu ")
-       
 
         
 
