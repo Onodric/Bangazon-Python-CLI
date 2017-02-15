@@ -46,7 +46,7 @@ class OrderDB():
             cursor = db.cursor()
 
             cursor.execute("""
-                INSERT INTO Orders VALUES (null, {}, '{}', {})
+                INSERT INTO Orders VALUES (null, {}, {}, {})
                 """
                 .format(0, 'null', input_order[-1]))
 
