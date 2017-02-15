@@ -110,6 +110,11 @@ class ProductPopularity():
 
 
         print ( "{:*^55}".format("*"))
+        print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", "nothing", "functional", "yet"))
+
+        # Julia's
+        # print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", sum(sum_orders), sum(sum_customers), "$" + total_bangazon_revenue))
+
         input("->Press any key to return to main menu ")
 
 
