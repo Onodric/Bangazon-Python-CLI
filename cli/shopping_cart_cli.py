@@ -5,6 +5,7 @@ from db.line_item_db_interactor import *
 from db.customer_db_interactor import *
 from db.product_db_interactor import *
 from db.payment_db_interactor import *
+from models.shopping_cart import *
 
 class ShoppingCartCLI():
     """
@@ -53,27 +54,35 @@ class ShoppingCartCLI():
 
         # retrieve the first open order that a customer has, or make a new one        
         all_orders = self.order.get_all_orders()
+        self.active_order = ()
+        if len(all_orders) < 1:
+            new_order = (0, None, self.current_customer[0][0])
+            self.order.write_one_order(new_order)
+            all_orders = self.order.get_all_orders()
         for item in all_orders:
-            if item[-1] == self.current_customer[0] and item[1] == 0:
+            if item[-1] == self.current_customer[0][0] and item[1] == 0:
                 self.active_order = item
-        new_order = (0, None, self.current_customer[0])
-        self.order.write_one_order(new_order)
-        self.active_order = ((len(all_orders)+1), 0, None, self.current_customer[0])
+        if self.active_order == ():
+            new_order = (0, None, self.current_customer[0][0])
+            self.order.write_one_order(new_order)
         
+
         # get all attached line items of an order
         self.existing_line_items = []
-        for item in self.all_line_items:
-            if item[1] == order[0]:
-                self.existing_line_items.append(item)
+        print(self.all_line_items)
+        if len(self.all_line_items) > 0:
+            for item in self.all_line_items:
+                if item[1] == self.active_order[0]:
+                    self.existing_line_items.append(item)
 
         # retrieve the customer payment types        
         self.customers_payments = []
-        all_payments = self.PaymentDatabaseInteractor.get_all_payments()
+        all_payments = self.payment.get_all_payments()
         for item in all_payments:
-            if item[-1] == self.current_customer[0]:
+            if item[-1] == self.current_customer[0][0]:
                 self.customers_payments.append(item)
 
-        self.shopping_cart = ShoppingCart(customer=self.current_customer, line_items=self.existing_line_items, order=self.active_order)
+        self.shopping_cart = ShoppingCart(customer=self.current_customer, line_items=self.existing_line_items, current_order=self.active_order)
 
 
     def add_line_item(self):
@@ -82,39 +91,54 @@ class ShoppingCartCLI():
         """
         choice = None
         while choice != 0:
+            print('\n\n\nAvailable Products\n')
             for item in self.all_products:
-                print("{}. {}".format(item[0], item[1]))
-            print("0. Return to Main Menu")
-            choice = input("Please press the number of the product you wish to add to your order:")
-            if choice == 0:
-                return
+                print("{}. {}".format(item[0], item[-1]))
+            print("\n0. Return to Main Menu")
+            choice = input("\nPlease press the number of the product you wish to add to your order:")
+            if choice == '0':
+                break
             else:
                 for item in self.all_products:
-                    if choice == item[0]:
-                        self.shopping_cart.add_product(item)
+                    if choice == str(item[0]):
+                        print("added {}".format(item[-1]))
+                        self.shopping_cart.add_product(self.active_order, item)
+                        self.existing_line_items.append(item)
 
 
     def pay_for_cart(self):
         """
         CLI Method for option 5 of the main menu
         """
+
+        self.all_line_items = self.line_item.get_all_line_items()
+        self.existing_line_items = []
+        for item in self.all_line_items:
+            if item[1] == self.active_order[0]:
+                self.existing_line_items.append(item)
+        
         if self.existing_line_items == []:
             input("Please add some products to your order first. Press any key to return to main menu.")
         else:
-            total = self.shopping_cart.get_cart_total()
+            total = 0
+            line_items = self.shopping_cart.get_cart_total(self.active_order)
+            for product in self.all_products:
+                for item in line_items:
+                    if product[0] == item[-1]:
+                        total += product[1]
             print("Your order total is ${:.2f}. Ready to purchase?\n(Y/N) ".format(total))
             choice = input(">")
-            if choice == "Y":
+            if choice == "Y" or choice == "y":
                 if self.customers_payments == []:
                     input("Please add a payment method to your account first. Press any key to return to main menu.")
                 else:
                     print("Choose a payment option:")
                     for item in self.customers_payments:
-                        print("{}. {}".format(item[0], item[1]))
+                        print("{}. {}".format(item[0], item[2]))
                     pay_choice = input(">")
                     for item in self.customers_payments:
-                        if pay_choice == item[0]:
-                            self.shopping_cart.accept_payment()
+                        if pay_choice == str(item[0]):
+                            self.shopping_cart.accept_payment(item, self.active_order)
                             input("Your order is complete! Press any key to return to main menu.")
                         else:
                             input("Not a valid payment choice, payment cancelled.")
