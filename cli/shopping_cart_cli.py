@@ -50,14 +50,14 @@ class ShoppingCartCLI():
         self.products = ProductData()
 
 
-    def get_active_order(self):
+    def get_active_order(self, customer):
         """
         Method to return the current active order, or to create one if none are open
 
         Arguments: None 
         """
 
-        current_customer = Customer_db.get_active()[0]
+        current_customer = customer
         all_orders = self.order.get_all_orders()
         active_order = ()
         if len(all_orders) < 1:
@@ -72,7 +72,7 @@ class ShoppingCartCLI():
             self.order.write_one_order(new_order)
             all_orders = self.order.get_all_orders()
             for item in all_orders:
-                if item[-1] == self.current_customer[0] and item[1] == 0:
+                if item[-1] == current_customer[0] and item[1] == 0:
                     active_order = item
                     return active_order
         return active_order
@@ -84,12 +84,12 @@ class ShoppingCartCLI():
         
         Arguments: the current order as a tuple 
         """
-
+        all_line_items = self.line_item.get_all_line_items()
         existing_line_items = []
-        if len(self.all_line_items) > 0:
-            for item in self.all_line_items:
+        if len(all_line_items) > 0:
+            for item in all_line_items:
                 if item[1] == order[0]:
-                    self.existing_line_items.append(item)
+                    existing_line_items.append(item)
         return existing_line_items
 
 
@@ -103,7 +103,8 @@ class ShoppingCartCLI():
         all_payments = self.payment.get_all_payments()
         for item in all_payments:
             if item[-1] == current_customer[0]:
-                self.customers_payments.append(item)
+                customers_payments.append(item)
+        return customers_payments
 
 
     def add_line_item(self):
@@ -111,29 +112,34 @@ class ShoppingCartCLI():
         CLI Method for option 4 of the main menu
         """
 
-        current_customer = Customer_db.get_active()[0]
-        if type(current_customer) != tuple
+        try:
+            current_customer = Customer_db.get_active()[0]
+        except:
             input("Please choose an active customer")
-            break
+            return
 
-        active_order = get_active_order()
+        active_order = self.get_active_order(current_customer)
         all_products = self.products.get_all_products()
-        shopping_cart = ShoppingCart(customer=current_customer, line_items=get_current_line_items(active_order), current_order=active_order)
+        shopping_cart = ShoppingCart(customer=current_customer, line_items=self.get_current_line_items(active_order), current_order=active_order)
         
         choice = None
         while choice != 0:
+            added = False
             print('\n\n\nAvailable Products\n')
-            for item in self.all_products:
+            for item in all_products:
                 print("{}. {}".format(item[0], item[-1]))
             print("\n0. Return to Main Menu")
             choice = input("\nPlease press the number of the product you wish to add to your order:")
             if choice == '0':
                 break
             else:
-                for item in self.all_products:
+                for item in all_products:
                     if choice == str(item[0]):
+                        added = True
                         print("added {}".format(item[-1]))
                         shopping_cart.add_product(active_order, item)
+                if not added:
+                    input("Please choose a valid option.")
 
 
     def pay_for_cart(self):
@@ -141,21 +147,24 @@ class ShoppingCartCLI():
         CLI Method for option 5 of the main menu
         """
 
-        current_customer = Customer_db.get_active()[0]
-        if type(current_customer) != tuple
+        try:
+            current_customer = Customer_db.get_active()[0]
+        except:
             input("Please choose an active customer")
-            break
+            return
 
-        active_order = get_active_order()
-        payment_methods = get_payment_methods()
-        shopping_cart = ShoppingCart(customer=current_customer, line_items=get_current_line_items(active_order), current_order=active_order)
+        active_order = self.get_active_order(current_customer)
+        payment_methods = self.get_payment_methods()
+        active_line_items = self.get_current_line_items(active_order)
+        shopping_cart = ShoppingCart(customer=current_customer, line_items=active_line_items, current_order=active_order)
+        all_products = self.products.get_all_products()
         line_items = shopping_cart.get_line_items()
         
         if line_items == []:
             input("Please add some products to your order first. Press any key to return to main menu.")
         else:
             total = 0
-            for product in self.all_products:
+            for product in all_products:
                 for item in line_items:
                     if product[0] == item[-1]:
                         total += product[1]
@@ -172,9 +181,11 @@ class ShoppingCartCLI():
                     paid = False
                     for item in payment_methods:
                         if pay_choice == str(item[0]):
-                            shopping_cart.accept_payment(item, active_order)
+                            # shopping_cart.accept_payment(item, active_order)
+                            self.order.close_one_order(active_order, item)
                             paid = True
                             input("Your order is complete! Press any key to return to main menu.")
+                            return
                     if paid == False:
                         input("Not a valid payment choice, payment cancelled.")
             else:
