@@ -17,7 +17,7 @@ class ProductPopularity():
         def get_total_num_of_customers
         def get_total_num_of_orders
 
-        Author: Julia Kim-Chung
+        Authors: Julia Kim-Chung, Sam Phillips
     """
     def __init__(self):
         self.order_db = OrderDB()
