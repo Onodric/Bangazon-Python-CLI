@@ -61,9 +61,9 @@ CREATE TABLE `Product` (
     description TEXT NOT NULL
 );
 
-INSERT INTO Product VALUES (null, 'coconut oil shampoo', 7.99, 'silky smoothe hair treatment shampoo');
-INSERT INTO Product VALUES (null, 'Rusty Slinky', 20.00, 'The most fun toy that ever gave you Tetanus!');
-INSERT INTO Product VALUES (null, 'Electric Guitar', 3.50, 'Fun way to make music.');
+INSERT INTO Product VALUES (null, 'Coconut Oil shampoo', 7.99, 'silky smoothe hair treatment shampoo');
+INSERT INTO Product VALUES (null, 'Rusty Slinky', 3.27, 'The most fun toy that ever gave you Tetanus!');
+INSERT INTO Product VALUES (null, 'Electric Guitar', 268.37, 'Fun way to make music.');
 
 
 

@@ -1,6 +1,8 @@
 from cli.active_customer_cli import CustomerSelection
+from cli.shopping_cart_cli import ShoppingCartCLI
 from cli.product_cli import ProductPopularity
 from cli.customer_creation_cli import CustomerCreation
+from cli.payment_cli import PaymentSelection
 from db.customer_db_interactor import Customer_db
 
 class BColor:
@@ -26,7 +28,7 @@ class MainMenu():
         customer_db = Customer_db()
         customer_db.update_active_false()
 
-        # while running == True, MainMenu loop will run repeatedly. 
+        # while running == True, MainMenu loop will run repeatedly.
         # To leave Bangazon, running is set to False
         running = True
 
@@ -55,11 +57,14 @@ class MainMenu():
                 choose_customer = CustomerSelection()
                 choose_customer.run()
             elif selected_option == "3":
-                print("Create a payment option")
+                payment_create = PaymentSelection()
+                payment_create.run()
             elif selected_option == "4":
-                print("Add product to shopping cart")
+                add_item = ShoppingCartCLI()
+                add_item.add_line_item()
             elif selected_option == "5":
-                print("complete an order")
+                add_item = ShoppingCartCLI()
+                add_item.pay_for_cart()
             elif selected_option == "6":
                 product_pop = ProductPopularity()
                 product_pop.run()

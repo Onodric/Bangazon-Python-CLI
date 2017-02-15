@@ -46,9 +46,9 @@ class OrderDB():
             cursor = db.cursor()
 
             cursor.execute("""
-                INSERT INTO Orders VALUES (null, {}, {}, {})
+                INSERT INTO Orders VALUES (null, {}, '{}', {})
                 """
-                .format(0, 'null', input_order[2]))
+                .format(0, 'null', input_order[-1]))
 
 
     def close_one_order(self, input_order, payment_method):
@@ -64,4 +64,4 @@ class OrderDB():
                     payment_id={},
                     customer_id={}
                 WHERE orders_id={}"""
-                .format(payment_method[0], input_order[3], input_order[0]))
+                .format(payment_method[0], input_order[-1], input_order[0]))
