@@ -3,6 +3,10 @@ import sys
 sys.path.append("../")
 from cli import product_cli
 # from db.initializer.sql import *
+from db.order_db_interactor import OrderDB
+from db.customer_db_interactor import Customer_db
+from db.product_db_interactor import ProductData
+from db.line_item_db_interactor import LineItemDB
 
 class TestOrderData(unittest.TestCase):
 	"""
@@ -24,6 +28,10 @@ class TestOrderData(unittest.TestCase):
 		 Create an instance of the product_p that can be used in all tests
 		"""
 		self.product_p = product_cli.ProductPopularity()
+		self.orders_all = OrderDB.get_all_orders(self)
+		self.customer_all = Customer_db.get_all_customers()
+		self.prod_all = ProductData.get_all_products(self)
+		self.line_item_all = LineItemDB.get_all_line_items(self)
 
 	
 
@@ -32,6 +40,7 @@ class TestOrderData(unittest.TestCase):
 		Method to test if data from db can be retrieved
 
 		"""
+
 		self.assertIsNotNone(self.product_p.line_items)
 		self.assertIsNotNone(self.product_p.order_data)
 		self.assertIsNotNone(self.product_p.product_data)
@@ -54,9 +63,17 @@ class TestOrderData(unittest.TestCase):
 		and an integer value
 		"""
 		num = self.product_p.get_total_num_of_customers()
-		for key, val in num.items():
-			self.assertEqual(type(num[key]), int)
-			self.assertIsNotNone(num[key])
+		customer_id = self.customer_all
+		order_num = self.orders_all
+		line_items = self.line_item_all
+		for orders in order_num:
+			for customer in customer_id:
+				if orders[3] == customer[0]:
+					self.assertEqual(orders[3], customer[0])
+
+					for key, val in num.items():
+						self.assertEqual(type(num[key]), int)
+						self.assertIsNotNone(num[key])
 
 	def test_can_retrieve_total_num_of_orders(self):
 		"""
@@ -64,9 +81,18 @@ class TestOrderData(unittest.TestCase):
 		and an integer value
 		"""
 		num = self.product_p.get_total_num_of_orders()
-		for key, val in num.items():
-			self.assertEqual(type(num[key]), int)
-			self.assertIsNotNone(num[key])
+		order_num = self.orders_all
+		line_items = self.line_item_all
+		prod_id = self.prod_all
+		for orders in order_num:
+			for line_item in line_items:
+				if orders[0] == line_item[1]:
+					for prod in prod_id:
+						if orders[2] == prod[0]:
+							self.assertEqual(orders[2], prod[0])
+							for key, val in num.items():
+								self.assertEqual(type(num[key]), int)
+								self.assertIsNotNone(num[key])
 
 
 
