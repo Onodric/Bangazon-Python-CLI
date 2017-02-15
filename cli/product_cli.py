@@ -5,6 +5,10 @@ from db.line_item_db_interactor import *
 from db.customer_db_interactor import *
 from db.product_db_interactor import *
 
+class BColor:
+    stars = '\033[91m'
+    ENDC = '\033[0m'
+
 class ProductPopularity():
     """
         This class is to build the chart for product popularity.
@@ -104,7 +108,7 @@ class ProductPopularity():
         sum_orders = []
 
         print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
-        print ( "{:*^55}".format("*"))
+        print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
         for key, value in total_orders.items():
             for prod, num in total_customers.items():
                 if prod == key:
@@ -117,12 +121,12 @@ class ProductPopularity():
 
 
                             print("{:<18}{:<11}{:<11}{:<15}".format(key[0:14], str(value), str(num), str(revenue)))
-        print ( "{:*^55}".format("*"))
+        print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
         print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", sum(sum_orders), sum(sum_customers), sum(sum_revenue)))
 
 
 
-        input("->Press any key to return to main menu ")
+        input("->Press any key to" + BColor.stars + " return" + BColor.ENDC + " to main menu" )
        
 
         
