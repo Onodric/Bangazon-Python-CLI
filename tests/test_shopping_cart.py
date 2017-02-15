@@ -113,7 +113,7 @@ class TestShoppingCart(unittest.TestCase):
         """
         Method to test whether the shopping cart can return the total
         """
-        expected_total = self.current_carty.get_cart_total()
+        expected_total = self.current_carty.get_cart_total(self.current_order)
         all_line_items = self.current_carty.get_line_items()
         actual_total = 0
         for item in all_line_items:

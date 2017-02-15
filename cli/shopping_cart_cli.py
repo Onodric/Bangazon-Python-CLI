@@ -65,6 +65,10 @@ class ShoppingCartCLI():
         if self.active_order == ():
             new_order = (0, None, self.current_customer[0][0])
             self.order.write_one_order(new_order)
+            all_orders = self.order.get_all_orders()
+            for item in all_orders:
+                if item[-1] == self.current_customer[0][0] and item[1] == 0:
+                    self.active_order = item
         
 
         # get all attached line items of an order
