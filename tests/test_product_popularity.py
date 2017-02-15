@@ -27,7 +27,7 @@ class TestOrderData(unittest.TestCase):
 
 	
 
-	def test_can_get_product_data(self):
+	def test_can_get_data_from_each_method(self):
 		"""
 		Method to test if data from db can be retrieved
 
@@ -39,15 +39,19 @@ class TestOrderData(unittest.TestCase):
 	def test_can_retrieve_total_revenue(self):
 		"""
 		Method to test if get_total_revenue method brings back a dict()
+		and an integer value
 		"""
 		total_price = self.product_p.get_total_revenue()
 		self.assertIsInstance(total_price, dict)
+		for key, val in total_price.items():
+			self.assertEqual(type(total_price[key]), int)
+
 
 
 	def test_can_retrieve_num_of_customers(self):
 		"""
 		Method to test if get_total_num_of_customers method brings back numbers in a dict()
-
+		and an integer value
 		"""
 		num = self.product_p.get_total_num_of_customers()
 		for key, val in num.items():
@@ -57,12 +61,12 @@ class TestOrderData(unittest.TestCase):
 	def test_can_retrieve_total_num_of_orders(self):
 		"""
 		Method to test if get_total_num_of_orders method brings back numbers in a dict()
-
+		and an integer value
 		"""
 		num = self.product_p.get_total_num_of_orders()
 		for key, val in num.items():
 			self.assertEqual(type(num[key]), int)
-			self.assertIsNotNone(num[key] )
+			self.assertIsNotNone(num[key])
 
 
 

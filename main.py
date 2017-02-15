@@ -34,12 +34,10 @@ class MainMenu():
         # as the control hub for the other modules
         while running:
             print("""\n\n\n\n\n\n""")
-            print(BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
+            print(BColor.stars+"{:*^54}".format("*")+ BColor.ENDC)
             print(BColor.stars+ "**" + BColor.ENDC + "Welcome to Bangazon! Command Line Ordering System" + BColor.stars + "**" + BColor.ENDC)
-            print(BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
-
+            print(BColor.stars+"{:*^54}".format("*")+ BColor.ENDC)
             selected_option = input("""
-
 1. Create a customer account
 2. Choose active customer
 3. Create a payment option
@@ -48,7 +46,7 @@ class MainMenu():
 6. See product popularity
 7. Leave Bangazon!
 >""")
-            
+                    
 
             if selected_option == "1":
                 create_customer = CustomerCreation()
