@@ -51,11 +51,8 @@ class ProductPopularity():
                     revenue[product[2]].append(product[1])
 
                     # add the order_id of the line_item to a set holding each order that contains that product
-                    # orders[product[2]].update("hello")
-                    # print("\nitem: " + str(item))
                     print("\nitem: " + str(item[1]))
                     pk = item[1]
-                    # orders[product[2]].update(str(pk))
                     orders[product[2]].update(str(item[1]))
 
                     # add the customer_id of the line_item's order to a set holding each customer that has ordered that product
@@ -65,6 +62,9 @@ class ProductPopularity():
                             # customers[product[2]].update("goodbye")
                             customers[product[2]].update(str(single_order[3]))
 
+
+        print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
+        print ( "{:*^55}".format("*"))
 
         # condensing
         bangazon_total_revenue = 0
@@ -78,26 +78,30 @@ class ProductPopularity():
                 bangazon_total_revenue += product[1]
             temp_revenue = "{:.2f}".format(temp_revenue)
             revenue[product[2]] = temp_revenue
-            print(revenue[product[2]])
+            # print(revenue[product[2]])
+
 
             for order in orders[product[2]]:
                 temp_orders += 1
             orders[product[2]] = temp_orders
-            print(revenue[product[2]])
+            # print(revenue[product[2]])
 
 
             for customer in customers[product[2]]:
                 temp_customers += 1
             customers[product[2]] = temp_customers
-            print(revenue[product[2]])
+            # print(revenue[product[2]])
+
+
+            print("{:<18}{:<11}{:<11}{:<15}".format(product[2], str(orders[product[2]]), str(customers[product[2]]), "$" +str(revenue[product[2]])))
 
 
 
         # report printing
-        print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
-        print ( "{:*^55}".format("*"))
-        for product in self.products:
-            print("{:<18}{:<11}{:<11}{:<15}".format(product[2], str(orders[product[2]]), str(customers[product[2]]), "$" +str(revenue[product[2]])))
+        # print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
+        # print ( "{:*^55}".format("*"))
+        # for product in self.products:
+        #     print("{:<18}{:<11}{:<11}{:<15}".format(product[2], str(orders[product[2]]), str(customers[product[2]]), "$" +str(revenue[product[2]])))
 
 
         print ( "{:*^55}".format("*"))
