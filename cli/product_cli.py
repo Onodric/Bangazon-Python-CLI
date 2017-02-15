@@ -35,9 +35,16 @@ class ProductPopularity():
         """
         This is a method to get total revenue of a specific product that's in the order_data
         """
+        self.order_data = OrderDB.get_all_orders(self)
+        self.product_data = ProductData.get_all_products(self)
+        self.line_items = LineItemDB.get_all_line_items(self)
+        self.customer_data = Customer_db.get_all_customers()
+
+
         revenue = dict()
         for order in self.order_data:
             for item in self.line_items:
+                # if the line_item belongs to the order
                 if order[0] == item[1]:
                     for product in self.product_data:
                         if product[0] == item[2]:
@@ -52,6 +59,13 @@ class ProductPopularity():
         """
         This is a method to get total number of customers who have ordered the specific product that's in the order_data
         """
+
+        self.order_data = OrderDB.get_all_orders(self)
+        self.product_data = ProductData.get_all_products(self)
+        self.line_items = LineItemDB.get_all_line_items(self)
+        self.customer_data = Customer_db.get_all_customers()
+
+
         customers = dict()
         for order in self.order_data:
             for item in self.line_items:
@@ -71,6 +85,13 @@ class ProductPopularity():
         """
         This is a method to get total number of orders of a specific product that's in the order_data
         """
+
+        self.order_data = OrderDB.get_all_orders(self)
+        self.product_data = ProductData.get_all_products(self)
+        self.line_items = LineItemDB.get_all_line_items(self)
+        self.customer_data = Customer_db.get_all_customers()
+
+        
         orders = dict()
         for order in self.order_data:
           for item in self.line_items:
