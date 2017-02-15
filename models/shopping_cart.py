@@ -16,7 +16,6 @@ class ShoppingCart():
     format of product:
         (pk_order (autoIncrement!), name (string), price (number), description (string))
 
-
     Author: Ben Marks, Ludicrous Ducks
 
     Methods:
@@ -30,7 +29,7 @@ class ShoppingCart():
     """
 
     def __init__(self, customer=tuple(), line_items=list(),
-            payment_method=tuple(), current_order=tuple()):
+            payment_method=None, current_order=tuple()):
         """
         Method to initialize the class with empty default values
 
@@ -48,6 +47,8 @@ class ShoppingCart():
         self.__payment_method = payment_method
         self.__is_closed = 0
         self.__current_order = current_order
+        self.__line_item_db = LineItemDB()
+        self.__order_db = OrderDB()
 
 
     def get_customer(self):
@@ -90,7 +91,7 @@ class ShoppingCart():
         return self.__is_closed
 
 
-    def add_product(self, product):
+    def add_product(self, current_order, product):
         """
         Method to add one line item to the order
 
@@ -100,31 +101,35 @@ class ShoppingCart():
         Arguments:
             product: a tuple containing one product's data
         """
-        self.__line_items.append(product)
+        # self.__line_items.append(product)
+        self.__line_item_db.write_one_line_item(current_order, product)
 
 
-    def get_cart_total(self):
+    def get_cart_total(self, order):
         """
         Method to return the total price of line items in the cart
         
         Arguments: NONE
         """
 
-        total_price = 0
+        all_line_items = self.__line_item_db.get_all_line_items()
+        join_table = []
+        self.__line_items = []
+        for item in all_line_items:
+            if order[0] == item[1]:
+                join_table.append(item)
 
-        for item in self.__line_items:
-            total_price += item[2]
-
-        return total_price
+        return join_table
 
 
-    def accept_payment(self, payment_method):
+    def accept_payment(self, payment_method, current_order):
         """
         Method to add a payment method to the order
 
         Arguments:
         payment_method: a tuple containing one payment method's data
         """
-
+        
         self.__payment_method = payment_method
         self.__is_closed = 1
+        self.__order_db.close_one_order(payment_method, current_order)

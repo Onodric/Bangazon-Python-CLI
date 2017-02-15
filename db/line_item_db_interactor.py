@@ -25,17 +25,13 @@ class LineItemDB():
         """
         Method to return all lineitems in the LineItem table
         """
-        print(configuration.database_path)
         with sqlite3.connect(configuration.database_path) as db:
             cursor = db.cursor()
 
-            try:
-                cursor.execute("SELECT * FROM LineItem")
-                line_items = cursor.fetchall()
-                return line_items
-            except sqlite3.OperationalError:
-                pass
-                # return "There was an Error reading from the Line Items Table"
+            cursor.execute("SELECT * FROM LineItem")
+            line_items = cursor.fetchall()
+            return line_items
+
 
     def write_one_line_item(self, order, product):
         """

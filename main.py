@@ -1,4 +1,5 @@
 from cli.active_customer_cli import CustomerSelection
+from cli.shopping_cart_cli import ShoppingCartCLI
 from cli.product_cli import ProductPopularity
 from cli.customer_creation_cli import CustomerCreation
 from cli.payment_cli import PaymentSelection
@@ -54,9 +55,11 @@ class MainMenu():
                 payment_create = PaymentSelection()
                 payment_create.run()
             elif selected_option == "4":
-                print("Add product to shopping cart")
+                add_item = ShoppingCartCLI()
+                add_item.add_line_item()
             elif selected_option == "5":
-                print("complete an order")
+                add_item = ShoppingCartCLI()
+                add_item.pay_for_cart()
             elif selected_option == "6":
                 product_pop = ProductPopularity()
                 product_pop.run()
