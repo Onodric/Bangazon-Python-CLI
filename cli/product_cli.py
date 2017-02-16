@@ -84,17 +84,16 @@ class ProductPopularity():
         sortable_list.sort(key=lambda x: x[3], reverse=True)
         sorted_list = sortable_list
         for item in sortable_list:
-            print("Sorting List: {}".format(item))
             totals[0] += item[1]
             totals[1] += item[2]
             totals[2] += item[3]
 
-        print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
+        print("\n\n{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
         print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
         for product in sorted_list:
-            print("{:<18}{:<11}{:<11}${:<15.2f}".format(product[0], product[1], product[2], product[3]))
+            print("{:<18}{:<11}{:<11}${:<15.2f}".format(product[0][:14], product[1], product[2], product[3]))
         
         print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
         print("{:<18}{:<11}{:<11}${:<15.2f}".format("Totals: ", totals[0], totals[1], totals[2]))
 
-        input("->Press any key to" + BColor.stars + " return" + BColor.ENDC + " to main menu" )
+        input("\n->Press any key to" + BColor.stars + " return" + BColor.ENDC + " to main menu" )

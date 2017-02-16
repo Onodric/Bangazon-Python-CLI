@@ -35,7 +35,7 @@ class MainMenu():
         # starts the main loop, which handles all CLI functionality and acts
         # as the control hub for the other modules
         while running:
-            print("""\n\n\n\n\n\n""")
+            print("""\n\n\n\n""")
             print(BColor.stars+"{:*^54}".format("*")+ BColor.ENDC)
             print(BColor.stars+ "**" + BColor.ENDC + "Welcome to Bangazon! Command Line Ordering System" + BColor.stars + "**" + BColor.ENDC)
             print(BColor.stars+"{:*^54}".format("*")+ BColor.ENDC)
@@ -46,7 +46,7 @@ class MainMenu():
 4. Add product to shopping cart
 5. Complete an order
 6. See product popularity
-7. Leave Bangazon!
+7. Leave Bangazon!\n
 >""")
                     
 
