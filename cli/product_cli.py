@@ -29,62 +29,10 @@ class ProductPopularity():
         initilaized get_all_customers()method from Orders from the customer db file
         """
 
-        self.order_data = OrderDB.get_all_orders(self)
-        self.product_data = ProductData.get_all_products(self)
-        self.line_items = LineItemDB.get_all_line_items(self)
-        self.customer_data = Customer_db.get_all_customers()
-
-
-    def get_total_revenue(self):
-        """
-        This is a method to get total revenue of a specific product that's in the order_data
-        """
-        revenue = dict()
-        for order in self.order_data:
-            for item in self.line_items:
-                if order[0] == item[1]:
-                    for product in self.product_data:
-                        if product[0] == item[2]:
-                            revenue[product[2]] =list()
-                            revenue[product[2]].append(product[1])
-                            revenue[product[2]] = int(sum(revenue[product[2]]))
-                            
-        return revenue
-
-
-    def get_total_num_of_customers(self):
-        """
-        This is a method to get total number of customers who have ordered the specific product that's in the order_data
-        """
-        customers = dict()
-        for order in self.order_data:
-            for item in self.line_items:
-                if order[0] == item[1]:
-                    for product in self.product_data:
-                        for customer in self.customer_data:
-                            if product[0] == item[2]:
-                                if order[3] == customer[0]:
-                                    customers[product[2]] =list()
-                                    customers[product[2]].append(order[3])
-                                    customers[product[2]] = len(customers[product[2]])
-
-        return customers
-
-
-    def get_total_num_of_orders(self):
-        """
-        This is a method to get total number of orders of a specific product that's in the order_data
-        """
-        orders = dict()
-        for order in self.order_data:
-          for item in self.line_items:
-            if order[0] == item[1]:
-                for product in self.product_data:
-                    if product[0] == item[2]:
-                        orders[product[2]] =list()
-                        orders[product[2]].append(order[0])
-                        orders[product[2]] = len(orders[product[2]])
-        return orders
+        self.order_data = OrderDB()
+        self.product_data = ProductData()
+        self.line_item_data = LineItemDB()
+        self.customer_data = Customer_db()
 
 
     def run(self):
@@ -93,47 +41,55 @@ class ProductPopularity():
         
         """
 
-        total_revenue = self.get_total_revenue()
+        all_orders = self.order_data.get_all_orders()
+        all_products = self.product_data.get_all_products()
+        all_line_items = self.line_item_data.get_all_line_items()
 
-        total_customers = self.get_total_num_of_customers()
-        total_orders = self.get_total_num_of_orders()
+        sales = dict()
+        unique_customers = set()
 
-        
-        """
-        This for loops will retrieve the total order number, total customer number, total revenue of a specific product 
-        and print out the results in the command line
-        """
-        sum_revenue = []
-        sum_customers = []
-        sum_orders = []
+        # This should create a dictionary of products containing the quantity sold and a set of unique orders its found on.
+        for product in all_products:
+            quantity = 0
+            total = 0
+            these_orders = set()
+            customers = set()
+            for item in all_line_items:
+                if product[0] == item[1]:
+                    quantity += 1
+                    total += product[1]
+                    these_orders.add(item[2])
+            for sale_order in these_orders:
+                for order in all_orders:
+                    if sale_order == order[0]:
+                        customers.add(order[-1])
+            sales[product[2]] = dict(quantity = quantity, total = total, orders = these_orders, customers = customers)
+
+        # print(sales.items())
+
+        # # Now Sort!
+        # sortable_list = list()
+        # for product, value in sales.items():
+        #     if len(sortable_list) < 1:
+        #         sortable_list.append((product, value['quantity'], len(value['customers']), value['total']))
+        #     else:
+        #         for index, item in enumerate(sortable_list):
+        #             if item[-1] < value['total']:
+        #                 sortable_list.insert(index, (product, value['quantity'], len(value['customers']), value['total']))
+        #                 return
+        #         sortable_list.insert(-1, (product, value['quantity'], len(value['customers']), value['total']))
+
+        # print('{}'.format(sortable_list[1]))
 
         print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
         print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
-        for key, value in total_orders.items():
-            for prod, num in total_customers.items():
-                if prod == key:
-                    for name, revenue in total_revenue.items():
-                        if name == key:
-                            sum_orders.append(value)
-                            sum_customers.append(num)
-                            sum_revenue.append(revenue)
-                        
-
-
-                            print("{:<18}{:<11}{:<11}{:<15}".format(key[0:14], str(value), str(num), str(revenue)))
+        # for key, product in sortable_list.items():
+        #     print("{:<18}{:<11}{:<11}${:<15:.2f}".format(key[0:14], product['quantity'], len(product['customers']), product['total']))
+        
+        for key, product in sales.items():
+            print("{:<18}{:<11}{:<11}${:<15.2f}".format(key[0:14], product['quantity'], len(product['customers']), product['total']))
+        
         print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
-        print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", sum(sum_orders), sum(sum_customers), sum(sum_revenue)))
-
-
+        # print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", sum(sum_orders), sum(sum_customers), sum(sum_revenue)))
 
         input("->Press any key to" + BColor.stars + " return" + BColor.ENDC + " to main menu" )
-       
-
-        
-
-
-
-    
-       
-
-
