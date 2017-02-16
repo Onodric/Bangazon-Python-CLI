@@ -44,9 +44,19 @@ class ProductPopularity():
         all_orders = self.order_data.get_all_orders()
         all_products = self.product_data.get_all_products()
         all_line_items = self.line_item_data.get_all_line_items()
-
         sales = dict()
         unique_customers = set()
+        closed_orders = list()
+        closed_line_items = list()
+
+        for order in all_orders:
+            if order[1] == 1:
+                closed_orders.append(order)
+
+        for order in closed_orders:
+            for item in all_line_items:
+                if item[1] == order[0]:
+                    closed_line_items.append(item)
 
         # This should create a dictionary of products containing the quantity sold and a set of unique orders its found on.
         for product in all_products:
@@ -54,42 +64,37 @@ class ProductPopularity():
             total = 0
             these_orders = set()
             customers = set()
-            for item in all_line_items:
-                if product[0] == item[1]:
+            for item in closed_line_items:
+                if product[0] == item[2]:
                     quantity += 1
                     total += product[1]
-                    these_orders.add(item[2])
+                    these_orders.add(item[1])
             for sale_order in these_orders:
                 for order in all_orders:
                     if sale_order == order[0]:
                         customers.add(order[-1])
             sales[product[2]] = dict(quantity = quantity, total = total, orders = these_orders, customers = customers)
 
-        # print(sales.items())
+        # Now Sort!
+        sortable_list = list()
+        for product in sales.keys():
+            sortable_list.append([product, sales[product]['quantity'], len(sales[product]['customers']), sales[product]['total']])
 
-        # # Now Sort!
-        # sortable_list = list()
-        # for product, value in sales.items():
-        #     if len(sortable_list) < 1:
-        #         sortable_list.append((product, value['quantity'], len(value['customers']), value['total']))
-        #     else:
-        #         for index, item in enumerate(sortable_list):
-        #             if item[-1] < value['total']:
-        #                 sortable_list.insert(index, (product, value['quantity'], len(value['customers']), value['total']))
-        #                 return
-        #         sortable_list.insert(-1, (product, value['quantity'], len(value['customers']), value['total']))
-
-        # print('{}'.format(sortable_list[1]))
+        totals = [0, 0, 0]
+        sortable_list.sort(key=lambda x: x[3], reverse=True)
+        sorted_list = sortable_list
+        for item in sortable_list:
+            print("Sorting List: {}".format(item))
+            totals[0] += item[1]
+            totals[1] += item[2]
+            totals[2] += item[3]
 
         print("{:<18}{:<11}{:<11}{:<15}".format("Product", "Order", "Customers", "Revenue") )
         print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
-        # for key, product in sortable_list.items():
-        #     print("{:<18}{:<11}{:<11}${:<15:.2f}".format(key[0:14], product['quantity'], len(product['customers']), product['total']))
-        
-        for key, product in sales.items():
-            print("{:<18}{:<11}{:<11}${:<15.2f}".format(key[0:14], product['quantity'], len(product['customers']), product['total']))
+        for product in sorted_list:
+            print("{:<18}{:<11}{:<11}${:<15.2f}".format(product[0], product[1], product[2], product[3]))
         
         print ( BColor.stars+"{:*^55}".format("*")+ BColor.ENDC)
-        # print("{:<18}{:<11}{:<11}{:<15}".format("Totals: ", sum(sum_orders), sum(sum_customers), sum(sum_revenue)))
+        print("{:<18}{:<11}{:<11}${:<15.2f}".format("Totals: ", totals[0], totals[1], totals[2]))
 
         input("->Press any key to" + BColor.stars + " return" + BColor.ENDC + " to main menu" )
