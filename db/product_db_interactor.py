@@ -67,6 +67,15 @@ class ProductData():
             results = cursor.fetchall()
 
         return results
+
+    def get_all_revenue(self):
+
+        with sqlite3.connect(configuration.database_path) as proc:
+            cursor = proc.cursor()
+
+            cursor.execute("""SELECT * FROM ProductPopularity""")
+            results = cursor.fetchall()
+        return results
             
 
 

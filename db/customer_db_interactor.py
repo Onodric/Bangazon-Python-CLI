@@ -81,10 +81,7 @@ class Customer_db():
 		"""
 		with sqlite3.connect(configuration.database_path) as thingies:
 			cursor = thingies.cursor()
-			try:
-				cursor.execute('UPDATE Customer SET active = 0 WHERE active = 1')
-			except:
-				pass
+			cursor.execute('UPDATE Customer SET active = 0 WHERE active = 1')
 
 	def get_active():
 		"""

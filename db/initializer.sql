@@ -3,12 +3,14 @@ DELETE FROM Orders;
 DELETE FROM Product;
 DELETE FROM Payment;
 DELETE FROM Customer;
+DELETE FROM ProductPopularity;
 
 DROP TABLE IF EXISTS LineItem;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS Product;
 DROP TABLE IF EXISTS Payment;
 DROP TABLE IF EXISTS Customer;
+DROP VIEW IF EXISTS ProductPopularity;
 
 
 
@@ -115,3 +117,19 @@ INSERT INTO LineItem
 	SELECT null, o.orders_id, p.product_id
 	FROM Product p, Orders o, Customer c
 	WHERE p.name = "Electric Guitar" AND c.name="Bugs Bunny" AND o.customer_id = c.customer_id;
+
+
+CREATE VIEW ProductPopularity AS 
+SELECT  p.name AS Product, COUNT(o.orders_id) AS Orders, COUNT(c.customer_id)AS Customers, SUM(p.price)AS Revenue
+FROM LineItem l, Product p, Orders o, Customer c
+WHERE l.product_id = p.product_id AND
+o.orders_id = l.orders_id AND
+o.customer_id = c.customer_id AND
+p.product_id = l.product_id AND
+
+          
+GROUP BY Product
+ORDER BY  Revenue DESC;
+
+
+
