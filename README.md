@@ -2,9 +2,9 @@
 
 ## The Command Line Ordering System
 
-In this group project, you will be allowing a user to interact with a basic product ordering database.
+A project allowing a user to interact with a basic product ordering database using only a python-based Commande Line Interface.
 
-## Ordering System Interface
+## Ordering System Interface Details
 
 ### Main Menu
 
@@ -66,7 +66,7 @@ Enter account number
 
 ### Add Product to an Order
 
-> **Note:** These are examples. Add your own product names, please.
+> **Note:** These are examples.
 
 To make it easier to add multiple products, when the user selects a product to order, display the menu of products again. Make sure the last option of *Back to main menu* so the user can specify that no more products are needed.
 
@@ -106,7 +106,7 @@ Your order is complete! Press any key to return to main menu.
 
 Once the order is complete, show the main menu again, where the user can start creating another order.
 
-### See Product Popularity
+### Product Popularity Report
 
 When selecting this option, you will produce a command line report that looks like the following.
 
